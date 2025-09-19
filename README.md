@@ -86,16 +86,16 @@ In MiniBistro, non-player characters (NPCs) are powered by Large Language Models
 ## 📁 Project Structure
 MiniBistro/
 ├── Assets/
-│ ├── Scripts/
-│ │ ├── NPC/ # NPC core logic (Waiters, Customers, Chefs)
-│ │ ├── Player/ # Player movement and interaction controller
-│ │ ├── Managers/ # Game state, time, NPC spawning
-│ │ ├── UI/ # User interface
-│ │ └── API/ # AzureOpenAIManager.cs
-│ ├── Scenes/ # Unity scenes
-│ ├── Sprites/
-│ ├── Prefabs/
-│ └── StreamingAssets/ # API Key, JSON data (Waiters, Customers, Menu, etc.)
+│   ├── Scripts/
+│   │   ├── NPC/           # NPC core logic (Waiters, Customers, Chefs)
+│   │   ├── Player/        # Player movement and interaction controller
+│   │   ├── Managers/      # Game state, time, NPC spawning
+│   │   ├── UI/            # User interface
+│   │   └── API/           # AzureOpenAIManager.cs
+│   ├── Scenes/            # Unity scenes
+│   ├── Sprites/
+│   ├── Prefabs/
+│   └── StreamingAssets/   # API Key, JSON data (Waiters, Customers, Menu, etc.)
 ├── ProjectSettings/
 └── Packages/
 
