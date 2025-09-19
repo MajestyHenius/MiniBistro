@@ -1,0 +1,48 @@
+20250806 
+Player vs NPC
+NPC vs NPC
+NPC Schedule
+Values added but not used
+Memory not added
+
+20250811
+Real time decision Added
+
+20250812-0813
+Resource gaining added
+MemoryManager
+
+20250814
+Prompt changed, restaurant and park position removed
+
+20250815
+New assets applied
+
+20250819
+MVP, Restaurant First, Code Completely Changed, at NPCBehavior.cs
+
+20250820-0822 Waiter, Chef and Customer
+
+20250829 Playable, customer review added
+
+20250901 Bugs fixed, Pre-generated customers list added
+
+20250902 Customer values can be loaded
+
+20250905
+Customer library and random customers. 
+Waiter library and waiter cards selection.
+Waiter and customer dialogue.
+Waiter emergency state: Player interactable.
+
+20250908
+Waiter realtime decision revised, waiters should do their works faster.
+
+20250910
+UI Beautified
+
+20250916
+Demo track submission version
+
+20250918 
+An Open-source version. Assets are replaced to avoid redistribution.

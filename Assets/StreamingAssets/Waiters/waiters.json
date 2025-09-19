@@ -1,0 +1,152 @@
+[
+  {
+    "name": "陈思雨",
+    "name_eng": "Chen Siyu",
+    "Energy": 85,
+    "Mood": 72,
+    "personalityType": "积极",
+    "personalityType_eng": "positive",
+    "story": "陈思雨刚从旅游学院毕业，梦想是环游世界。她选择在餐厅工作，是希望攒够钱去国外看看。在工作中，她总是面带笑容，对顾客亲切耐心，常能用幽默化解尴尬场面。虽然有时也会因为繁忙而疲惫，但她会通过写旅行日记来给自己打气。餐厅像是她的第一站驿站，她希望和遇到的人都能留下暖心回忆。",
+    "story_eng": "Chen Siyu just graduated from tourism school and dreams of traveling the world. She chose to work in a restaurant to save money for traveling abroad. At work, she always wears a smile, is kind and patient with customers, and often uses humor to defuse awkward situations. Although she sometimes gets tired from the busy work, she motivates herself by writing travel diaries. The restaurant is like her first stop on the journey; she hopes to leave warm memories with everyone she meets."
+  },
+  {
+    "name": "刘志刚",
+    "name_eng": "Liu Zhigang",
+    "Energy": 92,
+    "Mood": 50,
+    "personalityType": "中性",
+    "personalityType_eng": "neutral",
+    "story": "刘志刚三十出头，曾经在工地干过几年体力活，后来因为一次意外受伤转到餐厅做服务员。他对工作不上不下，认真完成，但并不热衷。对顾客要求有耐心也有忍耐限度，一旦有人无理取闹他会沉默应对。他觉得餐厅只是过渡，心里常想着如何找到一份更体面稳定的工作，却迟迟没有行动的勇气。",
+    "story_eng": "Liu Zhigang is in his early thirties and used to do manual labor at construction sites. After an accident left him injured, he switched to working as a waiter. He does his job conscientiously but without much passion. He has patience with customers but also has his limits; if anyone becomes unreasonable, he responds with silence. He sees the restaurant as a temporary stop and often thinks about finding a more respectable and stable job, but he lacks the courage to take action."
+  },
+  {
+    "name": "赵岚",
+    "name_eng": "Zhao Lan",
+    "Energy": 75,
+    "Mood": 81,
+    "personalityType": "积极",
+    "personalityType_eng": "positive",
+    "story": "赵岚来自一个小镇，家里开着小餐馆，所以她自小就会做菜端盘子。来到大城市后，她在这家餐厅打工，总希望能学到更多经验。她对顾客很热心，常主动帮忙推荐菜品，还会留心客人细节。她觉得顾客的笑容很有价值，像是对自己付出的回应。在她心中，餐厅像一个舞台，她乐于在其中闪光。",
+    "story_eng": "Zhao Lan comes from a small town where her family ran a small restaurant, so she learned to cook and serve from a young age. After moving to the big city, she works at this restaurant, hoping to gain more experience. She is very enthusiastic with customers, often proactively recommending dishes and paying attention to details. She feels that customers' smiles are valuable, like a response to her efforts. In her heart, the restaurant is like a stage where she enjoys shining."
+  },
+  {
+    "name": "孙亮",
+    "name_eng": "Sun Liang",
+    "Energy": 68,
+    "Mood": 42,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "孙亮曾是一名游戏主播，但因缺乏人气和收入不得不放弃。他心中抱着些许不甘，总觉得自己才华没有被看见。转行到餐厅做服务员后，他时常情绪低落，觉得生活一成不变。他对顾客能做到基本礼貌，但笑容总是勉强。只有在和年轻客人谈起游戏时，他才会短暂闪现些热情。",
+    "story_eng": "Sun Liang was once a game streamer but had to give it up due to lack of popularity and income. He holds some regret, feeling that his talent went unnoticed. After switching to being a waiter, he often feels down and thinks life is monotonous. He maintains basic courtesy with customers, but his smiles are forced. Only when talking about games with younger customers does he briefly show some passion."
+  },
+  {
+    "name": "林可馨",
+    "name_eng": "Lin Kexin",
+    "Energy": 90,
+    "Mood": 77,
+    "personalityType": "积极",
+    "personalityType_eng": "positive",
+    "story": "林可馨是舞蹈学院的学生，为了减轻家里的经济负担，她课余时间就在餐厅兼职。她性格温柔体贴，懂得观察细节，有时甚至能记住常客的喜好。她喜欢把服务做成一种表演，让客人心情轻松。虽然学业和打工都让她很忙，但她坚信付出总会有回报。她常说，生活再累也要跳个笑容的舞步。",
+    "story_eng": "Lin Kexin is a dance student who works part-time at the restaurant to ease her family's financial burden. She is gentle and attentive, good at observing details, and sometimes even remembers regular customers' preferences. She enjoys turning service into a performance that puts customers at ease. Although both studies and work keep her busy, she firmly believes that hard work will pay off. She often says, \"No matter how tired life gets, you should still dance with a smile.\""
+  },
+  {
+    "name": "董伟",
+    "name_eng": "Dong Wei",
+    "Energy": 83,
+    "Mood": 39,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "董伟原本在一家工厂工作，但工厂倒闭他失业，只能找到餐厅中这份服务员的职位。他常常觉得自己被迫接受现实，对未来没什么期待。面对顾客时，他的语气冷淡，很少多说话，但工作还算稳妥。下班后，他常一个人抽烟，陷在对旧日工作的怀念里。他偶尔会后悔没有好好规划人生。",
+    "story_eng": "Dong Wei originally worked in a factory, but after it closed down, he became unemployed and could only find this job as a waiter. He often feels forced to accept reality and has little expectation for the future. With customers, his tone is aloof, and he rarely speaks much, but his work is reliable. After work, he often smokes alone, lost in nostalgia for his old job. He occasionally regrets not planning his life better."
+  },
+  {
+    "name": "韩雪",
+    "name_eng": "Han Xue",
+    "Energy": 79,
+    "Mood": 65,
+    "personalityType": "中性",
+    "personalityType_eng": "neutral",
+    "story": "韩雪是单亲妈妈，有一个上小学的儿子。为了养家，她选择做服务员，时间灵活还能多挣一些小费。她在工作中表现坚毅，但内心常被家庭压力压得透不过气。她知道自己必须坚强，所以在顾客面前总是保持职业的笑容。工作对她来说不是理想，而是责任。她靠着这股责任心撑起了自己的生活。",
+    "story_eng": "Han Xue is a single mother with a son in elementary school. To support her family, she chose to be a waiter for the flexible hours and extra tips. She appears resilient at work, but inside, she often feels overwhelmed by family pressures. She knows she must stay strong, so she always maintains a professional smile in front of customers. For her, work is not an ideal but a responsibility. It's this sense of duty that keeps her going."
+  },
+  {
+    "name": "吴峰",
+    "name_eng": "Wu Feng",
+    "Energy": 88,
+    "Mood": 70,
+    "personalityType": "积极",
+    "personalityType_eng": "positive",
+    "story": "吴峰是一名体育学院学生，热爱运动和团队合作。做服务员对他来说像一种锻炼，他总能用爽朗的笑声感染周围人。他动作迅速，遇到突发情况也能冷静解决。在餐厅，他常常主动帮助其他同事分担工作。顾客对他的评价大多是“活力四射”。他希望未来成为一名体育老师，把乐观传递给更多人。",
+    "story_eng": "Wu Feng is a sports academy student who loves athletics and teamwork. Being a waiter is like exercise to him; he always infects those around him with his hearty laughter. He moves quickly and can calmly handle emergencies. At the restaurant, he often proactively helps his colleagues share the workload. Customers often describe him as \"full of energy.\" He hopes to become a PE teacher in the future and pass his optimism to more people."
+  },
+  {
+    "name": "叶静",
+    "name_eng": "Ye Jing",
+    "Energy": 72,
+    "Mood": 34,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "叶静大学毕业后一直找不到专业对口的工作，本意是做平面设计，却只能先来餐厅谋生。她总觉得自己的才能被埋没，因而心情常常低沉。她在接待顾客时显得冷冷淡淡，但仍维持专业度。独处时，她会画画或写文字，把不安转移到纸笔上。她觉得人生暂时只是过渡，却不知道转折点何时会到来。",
+    "story_eng": "Ye Jing has been unable to find a job in her field since graduating from university. She intended to work in graphic design but had to take a job at the restaurant to make a living. She often feels that her talents are buried, which keeps her mood low. She appears aloof when serving customers but maintains professionalism. When alone, she draws or writes to transfer her unease onto paper. She feels life is just a transition for now but doesn't know when the turning point will come."
+  },
+  {
+    "name": "高远",
+    "name_eng": "Gao Yuan",
+    "Energy": 95,
+    "Mood": 80,
+    "personalityType": "积极",
+    "personalityType_eng": "positive",
+    "story": "高远是退役军人，选择在餐厅工作是为了更好地融入社会。他思维严谨，行动利落，带着一股军人特有的干脆与责任感。他对待顾客耐心细致，能化解矛盾场面，也时常照顾新人同事。虽然偶尔因军旅习惯显得严肃，但内心其实温暖。他把餐厅当作新阵地，希望能在这里找到平凡而稳定的归属感。",
+    "story_eng": "Gao Yuan is a retired soldier who chose to work in a restaurant to better integrate into society. He thinks rigorously, acts decisively, and carries a sense of military precision and responsibility. He is patient and meticulous with customers, able to resolve conflicts, and often looks after new colleagues. Although he sometimes appears serious due to his military habits, he is warm-hearted. He sees the restaurant as his new battlefield and hopes to find a normal but stable sense of belonging here."
+  },
+  {
+    "name": "方玲",
+    "name_eng": "Fang Ling",
+    "Energy": 76,
+    "Mood": 61,
+    "personalityType": "中性",
+    "personalityType_eng": "neutral",
+    "story": "方玲是艺术学院毕业生，但梦想未能实现，目前在餐厅工作。她性格有些腼腆，与顾客沟通时措辞总是小心翼翼。她并不讨厌这份工作，却也谈不上喜欢。安静稳定是她的追求，她通过绘画来释放心情。她常常会在餐巾纸背后偷偷画一些小插画，留作有趣的纪念。",
+    "story_eng": "Fang Ling is an art school graduate whose dreams didn't come true, so she now works at a restaurant. She is somewhat shy and always careful with her words when communicating with customers. She doesn't dislike the job, but she doesn't love it either. Quiet stability is what she seeks, and she expresses her feelings through painting. She often secretly draws little illustrations on napkins as fun mementos."
+  },
+  {
+    "name": "马强",
+    "name_eng": "Ma Qiang",
+    "Energy": 70,
+    "Mood": 40,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "马强有点暴躁，过去曾做过酒吧保安，因为和顾客冲突多次丢了工作。来到餐厅当服务员后，他努力克制脾气，但不耐烦还是会不经意流露。他觉得顾客有时过于挑剔，心中常有积怨。虽然他做事效率高，却很少露笑容。下班后，他会去健身房发泄情绪。对他而言，工作只是谋生而非热爱。",
+    "story_eng": "Ma Qiang is somewhat irritable. He used to work as a bar bouncer but lost his job multiple times due to conflicts with customers. After becoming a waiter, he tries to control his temper, but impatience still shows unintentionally. He feels customers are sometimes too picky and often harbors resentment. Although he works efficiently, he rarely smiles. After work, he goes to the gym to vent. For him, work is just a means to make a living, not a passion."
+  },
+  {
+    "name": "江月",
+    "name_eng": "Jiang Yue",
+    "Energy": 82,
+    "Mood": 73,
+    "personalityType": "积极",
+    "personalityType_eng": "positive",
+    "story": "江月喜欢人多热闹的环境，因此选择在餐厅工作。她性格开朗健谈，和顾客聊天如同老朋友，常常能缓解他们的等待情绪。她总是带着笑容迎接每一天，哪怕遇到难缠客人，也能用一句轻松调侃让气氛缓和。她觉得餐厅是她展示热情的舞台。她计划未来开一家属于自己的小咖啡馆。",
+    "story_eng": "Jiang Yue enjoys lively environments with lots of people, which is why she chose to work in a restaurant. She is outgoing and talkative, chatting with customers like old friends and often easing their wait. She greets each day with a smile, and even when dealing with difficult customers, she can lighten the mood with a lighthearted banter. She sees the restaurant as a stage to showcase her enthusiasm. She plans to open her own small café in the future."
+  },
+  {
+    "name": "许浩",
+    "name_eng": "Xu Hao",
+    "Energy": 87,
+    "Mood": 58,
+    "personalityType": "中性",
+    "personalityType_eng": "neutral",
+    "story": "许浩是一名夜校生，白天在餐厅工作，晚上上课学习软件编程。他对服务员这份工作态度认真，但内心总想着学好技术后换个方向。他看似沉默寡言，其实心中有明确目标。餐厅对他只是暂时的驿站，他不求与顾客过多交流，只求工作稳定。每当夜深，他会翻开笔记，提醒自己未来才是答案。",
+    "story_eng": "Xu Hao is a night school student who works at the restaurant during the day and studies software programming at night. He takes his job as a waiter seriously, but inwardly, he always thinks about switching directions after mastering technical skills. He seems quiet, but he has clear goals. The restaurant is just a temporary stop for him; he doesn't seek much interaction with customers, only stable work. Late at night, he opens his notes to remind himself that the future holds the answers."
+  },
+  {
+    "name": "邵敏",
+    "name_eng": "Shao Min",
+    "Energy": 65,
+    "Mood": 36,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "邵敏自觉怀才不遇，大学学的是外语，但因为没有好机会，只能屈身于餐厅服务岗位。她对工作不抱热情，常常表情疲惫，与顾客互动时冷淡寡言。她觉得每天都在浪费时光，对未来没有太清晰的方向。有时她会在脑海里幻想出国远走，却也知道那很难实现。现实与梦想的落差让她心里时常郁结。",
+    "story_eng": "Shao Min feels underappreciated. She studied foreign languages in university but, lacking good opportunities, had to settle for a job as a restaurant server. She has no passion for the work, often looks tired, and is aloof and quiet when interacting with customers. She feels like she's wasting time every day and has no clear direction for the future. Sometimes she fantasizes about going abroad but knows it's hard to achieve. The gap between reality and her dreams often leaves her feeling depressed."
+  }
+]

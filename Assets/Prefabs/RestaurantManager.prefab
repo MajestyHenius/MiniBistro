@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1428344851851619320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6954297337443386453}
+  - component: {fileID: 4294122623863731495}
+  m_Layer: 0
+  m_Name: RestaurantManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6954297337443386453
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428344851851619320}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.334513, y: 3.6738212, z: 0.17652032}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4294122623863731495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428344851851619320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed8d9f43e924864db597531946c22cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameSettings: {fileID: 11400000, guid: 60f55e746d8e7c946b99d6441591e08c, type: 2}
+  todayIncome: 0
+  reviewDisplayDuration: 5
+  reviewSpacing: 0.1
+  reviewUIPrefab: {fileID: 4429814232479977296, guid: f5c3ede1836eeec4da9b77bd04b52b2c, type: 3}
+  reviewsContainer: {fileID: 0}
+  reviewsPanel: {fileID: 0}
+  continueButton: {fileID: 0}
+  chartUIPrefab: {fileID: 0}
+  historicalDataList: []
+  customerPrefab: {fileID: 8762690456934717865, guid: 45f9c6ab8942e604f8b828f4da793982, type: 3}
+  maxQueueSize: 30
+  customerSpawnInterval: 5
+  spawnPosition: {fileID: 0}
+  testNegatives: 0
+  npcAppearances:
+  - {fileID: 22100000, guid: c88aad9979edb5a4eba8e64704d5387c, type: 2}
+  - {fileID: 22100000, guid: 756ada8c4d20de04d8d8d1ed55bbc590, type: 2}
+  - {fileID: 22100000, guid: b3111595ade171a4c9d06c25943eb05f, type: 2}
+  - {fileID: 22100000, guid: 75c501455bf5e4843a81c2af1c96ead6, type: 2}
+  - {fileID: 22100000, guid: 61aa00b7106856e4086d2eb4be296be2, type: 2}
+  - {fileID: 22100000, guid: d392ef1faf4ed414eaa7b5a91ea2f0b7, type: 2}
+  - {fileID: 22100000, guid: ee581ee705a10404d97b44b20ffec29d, type: 2}
+  - {fileID: 22100000, guid: a286719061849b245ae2f2c7471241b3, type: 2}
+  - {fileID: 22100000, guid: 3224652c6bc75694f8bd289b0903866c, type: 2}
+  - {fileID: 22100000, guid: d5e744e2431e8fc4f86a781f30383c6e, type: 2}
+  - {fileID: 22100000, guid: 20d37ad543940974a9ffd2cb56a1acef, type: 2}
+  - {fileID: 22100000, guid: 297e49c7ea96ee645832bed3982058ce, type: 2}
+  - {fileID: 22100000, guid: d708a09ca1e806f4395ee0f08563cb5c, type: 2}
+  - {fileID: 22100000, guid: 35766fed239f74441b48b570149c3093, type: 2}
+  - {fileID: 22100000, guid: e195388367a06cd489e1435aee2e3c09, type: 2}
+  - {fileID: 22100000, guid: 92b38e6c090ba8c4d960af8f9aeb5ec3, type: 2}
+  - {fileID: 22100000, guid: 78ab756d09b1098489f5d7d994cd2499, type: 2}
+  - {fileID: 22100000, guid: 35cd9ecae9a3ffc4a979e0e61c719f9a, type: 2}
+  - {fileID: 22100000, guid: 63f2688a34e3d7e4bac869f7822626a3, type: 2}
+  - {fileID: 22100000, guid: 79430db9943201b43b255295385c1b68, type: 2}
+  waiterRestingPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  waiterPrefab: {fileID: 3751231478562532259, guid: 3502101abd0ef594ca9ef796a36f0e67, type: 3}
+  kitchenPosition: {fileID: 0}
+  cleanerPosition: {fileID: 0}
+  waiterAppearances:
+  - {fileID: 22100000, guid: 36a874d6cbb832440bd7d975c19e2911, type: 2}
+  - {fileID: 22100000, guid: 6a096b3dacc44e04b929436993c5da9f, type: 2}
+  - {fileID: 22100000, guid: b56d6666ac1d3de40958831573bf797b, type: 2}
+  - {fileID: 22100000, guid: ce1ef78e431a6e546b11bb72c7056749, type: 2}
+  - {fileID: 22100000, guid: 89eb7248f78091c498f0f969be3518b8, type: 2}
+  - {fileID: 22100000, guid: 832e21cbbc4fcdd4ab6d87937b1f3ecf, type: 2}
+  - {fileID: 22100000, guid: e0c915a8af9c6c24391bbd7ff3660947, type: 2}
+  - {fileID: 22100000, guid: c3f6028216dbd544aba6d90dcede27bd, type: 2}
+  - {fileID: 22100000, guid: 9e13b45db47923e4f84bd20ce6bdd2fd, type: 2}
+  - {fileID: 22100000, guid: 163c5c5f637b64940a650625163e5d43, type: 2}
+  availableTables:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  entrancePosition: {fileID: 0}
+  queuePosition: {fileID: 0}
+  exitPosition: {fileID: 0}
+  cashierPosition: {fileID: 0}
+  RestaurantMenu: 
+  chefs:
+  - {fileID: 0}
+  - {fileID: 0}
