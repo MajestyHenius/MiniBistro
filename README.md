@@ -4,7 +4,7 @@
 
 ![Unity](https://img.shields.io/badge/Unity-2022.3%2B-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
-**MiniBistro** is a restaurant management/business simulation [game](#Directly Play) powered by Generative Agents. As the restaurant owner, you manage operations and build your reputation through natural language interactions with AI-driven waiters and customers. Game&Dialogue language: Chinese.
+**MiniBistro** is a restaurant management/business simulation [game](#Directly-Play) powered by Generative Agents. As the restaurant owner, you manage operations and build your reputation through natural language interactions with AI-driven waiters and customers. Game&Dialogue language: Chinese.
 ![Fig1](./ppt.jpg)
 
 ## 🎮 Overview
