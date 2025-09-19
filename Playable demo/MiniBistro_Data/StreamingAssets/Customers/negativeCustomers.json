@@ -1,0 +1,101 @@
+[
+  {
+    "name": "王建国",
+    "name_eng": "Wang Jianguo",
+    "baseMood": 23,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "王建国曾是建筑公司的项目经理，半年前因工地事故导致左腿残疾后遭公司无情解雇。妻子无法承受经济压力带着儿子离开，如今他独自住在潮湿的出租屋里。每天服用止痛药才能入睡，医生的诊断书显示他患有重度抑郁症。餐馆里喧闹的笑声只会加深他的痛苦，但除了这里，他无处可去——这是唯一能让他暂时忘记吞咽廉价抗抑郁药的地方。",
+    "story_eng": "Wang Jianguo was once a project manager at a construction company. Half a year ago, he was left disabled in his left leg due to a worksite accident and was heartlessly fired by the company. His wife, unable to bear the financial pressure, left with their son. Now he lives alone in a damp rental apartment. He needs to take painkillers every day to sleep, and his medical diagnosis shows severe depression. The noisy laughter in the restaurant only deepens his pain, but he has nowhere else to go—it's the only place that lets him temporarily forget about taking his cheap antidepressants.",
+    "returnIndex": 0,
+    "favDishes": [ "白粥", "清炒白菜" ]
+  },
+  {
+    "name": "赵美玲",
+    "name_eng": "Zhao Meiling",
+    "baseMood": 19,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "赵美玲的独生女三年前遭遇车祸离世后，她的世界彻底崩塌。丈夫因无法承受悲痛与她离婚，如今她独自守着空荡的老房子。每天清晨她都会把女儿的校服熨烫一遍，晚上抱着骨灰盒入睡。她总选择餐馆最阴暗的角落，因为阳光会刺痛她哭肿的眼睛。服务生见过她多次把眼泪滴进米饭里，却从不敢上前打扰。",
+    "story_eng": "Zhao Meiling's world completely collapsed after her only daughter passed away in a car accident three years ago. Her husband, unable to cope with the grief, divorced her. Now she remains alone in their empty old house. Every morning she irons her daughter's school uniform and sleeps holding the urn at night. She always chooses the darkest corner of the restaurant because the sunlight hurts her swollen, tearful eyes. The waitstaff have seen her tears fall into her rice multiple times but never dare to disturb her.",
+    "returnIndex": 0,
+    "favDishes": [ "蛋花汤", "白米饭" ]
+  },
+  {
+    "name": "高峻",
+    "name_eng": "Gao Jun",
+    "baseMood": 18,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "高峻自称是美食评论家，实则是专门靠写恶意差评勒索餐馆的惯犯。他总带着隐藏摄像头就餐，故意打翻汤水后指责地面滑腻，将头发丝偷偷放进菜里讹诈免单。最近他被曝光后换了城市重操旧业，此刻正盯着服务员每一个动作，等待制造事端的机会。",
+    "story_eng": "Gao Jun claims to be a food critic but is actually a habitual offender who extorts restaurants by writing malicious bad reviews. He always dines with a hidden camera, intentionally spills soup to accuse the place of having slippery floors, and secretly puts strands of hair in dishes to blackmail for free meals. Recently exposed, he moved to a new city to resume his old tricks. Right now, he is watching the server's every move, waiting for an opportunity to cause trouble.",
+    "returnIndex": 3,
+    "favDishes": [ "清蒸鲈鱼", "东坡肉" ]
+  },
+  {
+    "name": "孙丽娜",
+    "name_eng": "Sun Lina",
+    "baseMood": 22,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "退休中学教导主任孙丽娜以训斥服务生为乐。她会用指甲划擦餐具检查油渍，用秒表计算上菜时间，一旦超时就要求经理鞠躬道歉。曾因强迫服务生重摆七次餐具而上过本地论坛黑名单。今天她特意带了放大镜来检查玻璃杯上的水痕。",
+    "story_eng": "Sun Lina, a retired middle school dean, enjoys scolding waitstaff. She scrapes tableware with her fingernail to check for grease, uses a stopwatch to time the serving speed, and demands a bow and apology from the manager if it's late. She was once blacklisted on local forums for forcing a server to rearrange tableware seven times. Today she brought a magnifying glass specifically to inspect water spots on the glass.",
+    "returnIndex": 5,
+    "favDishes": [ "蒜蓉西兰花", "铁板豆腐" ]
+  },
+  {
+    "name": "刘振国",
+    "name_eng": "Liu Zhenguo",
+    "baseMood": 16,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "刘振国刚和邻居因为停车位问题大吵一架，额头还带着抓痕。他原本性格不算坏，但此刻怒火中烧，看什么都不顺眼。服务员稍微慢了点他就拍桌子，隔壁桌笑声大了他就瞪眼。他需要找个地方发泄情绪，而餐馆不幸成为了他的出气筒。",
+    "story_eng": "Liu Zhenguo just had a big argument with his neighbor over a parking space, and a scratch is still visible on his forehead. He isn't usually a bad person, but right now he is furious and finds fault with everything. He slams the table if the service is slightly slow and glares if the next table laughs too loudly. He needs a place to vent his anger, and the restaurant has unfortunately become his punching bag.",
+    "returnIndex": 2,
+    "favDishes": [ "水煮牛肉", "麻婆豆腐" ]
+  },
+  {
+    "name": "陈美华",
+    "name_eng": "Chen Meihua",
+    "baseMood": 20,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "陈美华刚发现丈夫出轨，直接掀了家里的饭桌冲出门。她双眼通红，攥着的手机里还有没删掉的暧昧短信。现在她需要找个地方冷静，但看到情侣用餐就会咬牙切齿。任何小事都可能引爆她的情绪——菜太咸、音乐太欢快，甚至服务员问候的语气都能让她爆发。",
+    "story_eng": "Chen Meihua just discovered her husband's affair, flipped the dining table at home, and stormed out. Her eyes are red, and her clenched phone still has the unsaved flirtatious messages. She needs a place to calm down now, but the sight of couples dining makes her grit her teeth. Anything minor could trigger her—overly salty food, music that's too cheerful, even the tone of the server's greeting might set her off.",
+    "returnIndex": 1,
+    "favDishes": [ "酸辣汤", "口水鸡" ]
+  },
+  {
+    "name": "张家明",
+    "name_eng": "Zhang Jiaming",
+    "baseMood": 14,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "张家明刚被客户骂了整整两小时，方案被打回来重做了第五遍。他带着一肚子火气冲进餐馆，领带扯得歪斜，西装皱巴巴。他现在看谁都像那个讨厌的客户，服务员无意间问还要加点什么吗都能被他听成挑衅。他需要狠狠咀嚼食物来发泄 frustration。\"",
+    "story_eng": "Zhang Jiaming was just berated by a client for two full hours, and his proposal was rejected for the fifth time. He rushed into the restaurant filled with anger, his tie crooked and suit wrinkled. Right now, everyone reminds him of that detestable client. Even the server's innocent question like 'Would you like anything else?' sounds like a provocation to him. He needs to chew his food fiercely to vent his frustration.",
+    "returnIndex": 4,
+    "favDishes": [ "椒盐排骨", "回锅肉" ]
+  },
+  {
+    "name": "林薇",
+    "name_eng": "Lin Wei",
+    "baseMood": 25,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "网红博主林薇专靠拍摄维权视频吸引流量。她会故意点菜单上没有的菜品，被拒绝后就开始直播\"黑店欺诈消费者\"。她的经典套路是突然尖叫指责食物里有异物，然后要求巨额精神损失费。包里的针头是她准备扎进口腔制造出血假象的工具。\"",
+    "story_eng": "Lin Wei, an internet influencer, specializes in gaining traffic by filming 'rights protection' videos. She intentionally orders dishes not on the menu and, when refused, starts live-streaming about 'scam restaurants cheating consumers.' Her classic routine is to suddenly scream and accuse the food of containing a foreign object, then demand massive compensation for emotional distress. The needle in her bag is a tool to prick her own mouth and create the false appearance of bleeding.",
+    "returnIndex": 2,
+    "favDishes": [ "澳洲龙虾", "松露炒饭" ]
+  },
+  {
+    "name": "吴国豪",
+    "name_eng": "Wu Guohao",
+    "baseMood": 12,
+    "personalityType": "消极",
+    "personalityType_eng": "negative",
+    "story": "吴国豪是职业碰瓷者，专门挑选生意火爆的餐馆作案。他会在走廊故意撞上端菜的服务生，然后捂着腰倒地要求赔偿。病历袋里装着伪造的腰椎间盘突出诊断书，手机计算器早已按好包括医疗费、误工费、精神损失费在内的索赔金额。",
+    "story_eng": "Wu Guohao is a professional 'crash-for-cash' scammer who specifically targets busy restaurants. He will intentionally bump into a server carrying dishes in the hallway, then clutch his back and fall to the ground demanding compensation. His medical record folder contains a fake diagnosis for a herniated disc, and the calculator on his phone is already open with the pre-calculated compensation amount, including medical fees, lost wages, and emotional damages.",
+    "returnIndex": 6,
+    "favDishes": []
+  }
+]

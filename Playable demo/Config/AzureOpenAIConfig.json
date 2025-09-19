@@ -1,0 +1,6 @@
+{
+  "endpoint": "your-endpoint",
+  "deployment": "your-deployment", //e.g. gpt-4.
+  "apiVersion": "your-apiVersion", //e.g. 2024-12-01-preview.
+  "subscriptionKey": "your-subscriptionKey"
+}
