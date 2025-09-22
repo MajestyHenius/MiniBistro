@@ -17,12 +17,12 @@ using static RestaurantManager;
 public class CustomerNPC : MonoBehaviour
 {
     private bool isDestroyed = false;
-    #region »ù´¡ÊôĞÔ
-    [Header("¹Ë¿Í»ù±¾ĞÅÏ¢")]
+    #region åŸºç¡€å±æ€§
+    [Header("é¡¾å®¢åŸºæœ¬ä¿¡æ¯")]
     public string customerName;
     public string customerName_eng;
-    public float satisfaction = 50f; // ÂúÒâ¶È£¬×îºó¸ø³ö
-    public string personality = "ÆÕÍ¨"; // negative, positive, .
+    public float satisfaction = 50f; // æ»¡æ„åº¦ï¼Œæœ€åç»™å‡º
+    public string personality = "æ™®é€š"; // negative, positive, .
     public string personality_eng;
     public GameObject dialogueBubblePrefab;
     private TMP_Text npcNameText;
@@ -31,23 +31,23 @@ public class CustomerNPC : MonoBehaviour
     private Coroutine bubbleCoroutine;
     public Vector3 bubbleOffset = new Vector3(0, 200, 0);
     public float bubbleDisplayTime = 3f;
-    public float waitTime = 0f;//ÅÅ¶ÓµÈ´ıÊ±¼ä
-    public float waitTime_order = 0f; //µã²ÍµÈ´ıÊ±¼ä
-    public int baseMood = 50; // »ù´¡ĞÄÇéÖµ
-    public string story = ""; // ¹Ë¿Í±³¾°¹ÊÊÂ
-    public string story_eng = ""; // ±³¾°¹ÊÊÂÓ¢ÎÄ·­Òë 
-    public int returnIndex = 0; // »ØÍ·¿ÍÖ¸Êı
-    public List<string> favoriteDishes = new List<string>(); // Ï²°®µÄ²ËÆ·ÁĞ±í
-    public int customerId = -1; // Ô¤Éè¹Ë¿ÍID£¬-1±íÊ¾Ëæ»úÉú³ÉµÄ¹Ë¿Í
-    private string PreviousEvent; //ÓÃÓÚ×Ü½á¶Ô»°¡¢ÓÃ²ÍÇé¿ö
+    public float waitTime = 0f;//æ’é˜Ÿç­‰å¾…æ—¶é—´
+    public float waitTime_order = 0f; //ç‚¹é¤ç­‰å¾…æ—¶é—´
+    public int baseMood = 50; // åŸºç¡€å¿ƒæƒ…å€¼
+    public string story = ""; // é¡¾å®¢èƒŒæ™¯æ•…äº‹
+    public string story_eng = ""; // èƒŒæ™¯æ•…äº‹è‹±æ–‡ç¿»è¯‘ 
+    public int returnIndex = 0; // å›å¤´å®¢æŒ‡æ•°
+    public List<string> favoriteDishes = new List<string>(); // å–œçˆ±çš„èœå“åˆ—è¡¨
+    public int customerId = -1; // é¢„è®¾é¡¾å®¢IDï¼Œ-1è¡¨ç¤ºéšæœºç”Ÿæˆçš„é¡¾å®¢
+    private string PreviousEvent; //ç”¨äºæ€»ç»“å¯¹è¯ã€ç”¨é¤æƒ…å†µ
     private string playerNewDialogue;
-    public string customerReplyPlayer = ""; //¿ÉÒÔÉ¾³ıÁË
+    public string customerReplyPlayer = ""; //å¯ä»¥åˆ é™¤äº†
     public delegate void CustomerReplyHandler(string customerName, string reply);
     public static event CustomerReplyHandler OnCustomerReply;
-    public int EmergencyStayRound = 0; //½ô¼±¶Ô»°´ÎÊı
+    public int EmergencyStayRound = 0; //ç´§æ€¥å¯¹è¯æ¬¡æ•°
     [Header("UI")]
-    public GameObject CustomerEmotionPrefab; //Õâ¸öÊÇÊ¼ÖÕÏÔÊ¾µÄ×´Ì¬ºÍĞÄÇéÖµ
-    public GameObject CustomerInformationPrefab; //Õâ¸öÊÇµã»÷²ÅÏÔÊ¾µÄÏêÏ¸ĞÅÏ¢¡£
+    public GameObject CustomerEmotionPrefab; //è¿™ä¸ªæ˜¯å§‹ç»ˆæ˜¾ç¤ºçš„çŠ¶æ€å’Œå¿ƒæƒ…å€¼
+    public GameObject CustomerInformationPrefab; //è¿™ä¸ªæ˜¯ç‚¹å‡»æ‰æ˜¾ç¤ºçš„è¯¦ç»†ä¿¡æ¯ã€‚
     private GameObject InformationUI;
 
     [System.Serializable]
@@ -61,18 +61,18 @@ public class CustomerNPC : MonoBehaviour
         public string story;
         public string story_eng;
         public int returnIndex;
-        public string[] favDishes; // ²»Ì«ºÃÖ±Òë£¬ÔİÁô
+        public string[] favDishes; // ä¸å¤ªå¥½ç›´è¯‘ï¼Œæš‚ç•™
     }
     private bool hasBeenGreeted = false;
     private NPCBehavior greetedByWaiter = null;
     #endregion
 
 
-    #region ¶¯»­Ïà¹Ø
+    #region åŠ¨ç”»ç›¸å…³
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private bool isFacingRight = false;
-    // ¶¯»­·½Ïò³£Á¿£¨ÓëÍæ¼ÒÒ»ÖÂ£©
+    // åŠ¨ç”»æ–¹å‘å¸¸é‡ï¼ˆä¸ç©å®¶ä¸€è‡´ï¼‰
     private const int UP = 0;
     private const int DOWN = 1;
     private const int LEFT = 2;
@@ -85,14 +85,14 @@ public class CustomerNPC : MonoBehaviour
         {
             animator.SetBool("IsWalking", isMoving);
 
-            // Ö»ÔÚÓĞÒÆ¶¯ÊäÈëÊ±¸üĞÂ·½Ïò
+            // åªåœ¨æœ‰ç§»åŠ¨è¾“å…¥æ—¶æ›´æ–°æ–¹å‘
             if (isMoving)
             {
                 int direction = GetDirection(moveDirection);
                 animator.SetInteger("Direction", direction);
             }
         }
-        // ´¦ÀíË®Æ½·­×ª
+        // å¤„ç†æ°´å¹³ç¿»è½¬
         if (spriteRenderer != null && moveDirection.x != 0)
         {
             bool shouldFaceRight = moveDirection.x > 0;
@@ -122,7 +122,7 @@ public class CustomerNPC : MonoBehaviour
     }
     void InitializeAnimComponents()
     {
-        // ³õÊ¼»¯¶¯»­×é¼ş
+        // åˆå§‹åŒ–åŠ¨ç”»ç»„ä»¶
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -134,25 +134,25 @@ public class CustomerNPC : MonoBehaviour
         if (animator != null)
         {
             animator.SetBool("IsWalking", false);
-            animator.SetInteger("Direction", DOWN);//Ä¬ÈÏÏòÏÂ
+            animator.SetInteger("Direction", DOWN);//é»˜è®¤å‘ä¸‹
         }
     }
 
     #endregion
 
 
-    #region ×´Ì¬¹ÜÀí
+    #region çŠ¶æ€ç®¡ç†
     public enum CustomerState
     {
-        Queuing,        // ÅÅ¶ÓµÈ´ı£¬ÓĞ±ØÒª±£Áô£¬ÓÃÓÚÉú³ÉnpcÔÚÃÅÍâÃæ,ÀıÈçËæ»ú°´Ë³ĞòÉú³É10¸ö£¬Õâ¸öÅÅ¶Ó²¢²»ÊÇËµ¹Ë¿ÍÔÚÃÅ¿ÚµÈ
-        Entering,       // ½øÈëµêÄÚ,ÔÚ½øÈë×ùÎ»µã²ËÖ®Ç°¡£Èç¹û×Ô¼ºµÄÅÅ¶ÓÎ»ÖÃÊÇ1£¬Á¢¼´½øÈëµêÄÚ£¬°Ñ×Ô¼º´ÓÅÅ¶ÓÖĞ×¢Ïú£¬È»ºó´«¸øËùÓĞ·şÎñÔ±£¬·şÎñÔ±ÖªµÀÁËÓĞÈË½øÈë£¬ĞèÒªÅÉ³öÒ»¸öÖ÷¶¯Ó­½Ó¡£
-        //ÈçºÎ´¦Àí¶àÈË
-        Ordering,       // µã²ËÖĞ
-        Seating,        // µÈ´ıÉÏ²Ë
-        Eating,         // ÓÃ²ÍÖĞ
-        Paying,         // ¸¶¿î
-        Leaving,         // Àë¿ª
-        // ¿ÉÄÜ»¹ĞèÒªÌ¸»°¡¢ÌØÊâÇé¿öµÈµÈ
+        Queuing,        // æ’é˜Ÿç­‰å¾…ï¼Œæœ‰å¿…è¦ä¿ç•™ï¼Œç”¨äºç”Ÿæˆnpcåœ¨é—¨å¤–é¢,ä¾‹å¦‚éšæœºæŒ‰é¡ºåºç”Ÿæˆ10ä¸ªï¼Œè¿™ä¸ªæ’é˜Ÿå¹¶ä¸æ˜¯è¯´é¡¾å®¢åœ¨é—¨å£ç­‰
+        Entering,       // è¿›å…¥åº—å†…,åœ¨è¿›å…¥åº§ä½ç‚¹èœä¹‹å‰ã€‚å¦‚æœè‡ªå·±çš„æ’é˜Ÿä½ç½®æ˜¯1ï¼Œç«‹å³è¿›å…¥åº—å†…ï¼ŒæŠŠè‡ªå·±ä»æ’é˜Ÿä¸­æ³¨é”€ï¼Œç„¶åä¼ ç»™æ‰€æœ‰æœåŠ¡å‘˜ï¼ŒæœåŠ¡å‘˜çŸ¥é“äº†æœ‰äººè¿›å…¥ï¼Œéœ€è¦æ´¾å‡ºä¸€ä¸ªä¸»åŠ¨è¿æ¥ã€‚
+        //å¦‚ä½•å¤„ç†å¤šäºº
+        Ordering,       // ç‚¹èœä¸­
+        Seating,        // ç­‰å¾…ä¸Šèœ
+        Eating,         // ç”¨é¤ä¸­
+        Paying,         // ä»˜æ¬¾
+        Leaving,         // ç¦»å¼€
+        // å¯èƒ½è¿˜éœ€è¦è°ˆè¯ã€ç‰¹æ®Šæƒ…å†µç­‰ç­‰
         Emergency
     }
 
@@ -161,23 +161,23 @@ public class CustomerNPC : MonoBehaviour
         switch (currentState)
         {
             case CustomerState.Queuing:
-                return "ÅÅ¶ÓÖĞ";
+                return "æ’é˜Ÿä¸­";
             case CustomerState.Entering:
-                return "½øÈëÖĞ";
+                return "è¿›å…¥ä¸­";
             case CustomerState.Ordering:
-                return "µã²ËÖĞ";
+                return "ç‚¹èœä¸­";
             case CustomerState.Seating:
-                return "µÈ²ËÖĞ";
+                return "ç­‰èœä¸­";
             case CustomerState.Eating:
-                return "ÓÃ²ÍÖĞ";
+                return "ç”¨é¤ä¸­";
             case CustomerState.Paying:
-                return "Ö§¸¶ÖĞ";
+                return "æ”¯ä»˜ä¸­";
             case CustomerState.Leaving:
-                return "Àë¿ªÖĞ";
+                return "ç¦»å¼€ä¸­";
             case CustomerState.Emergency:
-                return "½ô¼±Çé¿ö";
+                return "ç´§æ€¥æƒ…å†µ";
         }
-        return "ÔÚ·¹µê¶ºÁô";
+        return "åœ¨é¥­åº—é€—ç•™";
     }
 
 
@@ -205,44 +205,44 @@ public class CustomerNPC : MonoBehaviour
         return "Staying";
     }
     public CustomerState currentState = CustomerState.Queuing;
-    private CustomerState stateBeforeEmergency; //¼ÇÂ¼½øÈë½ô¼±Ç°µÄ×´Ì¬
+    private CustomerState stateBeforeEmergency; //è®°å½•è¿›å…¥ç´§æ€¥å‰çš„çŠ¶æ€
     private bool isExecutingActivity = false;
     private Coroutine currentRoutine = null;
-    public int QueingNumber = 1; //ÅÅ¶ÓµÄË³Ğò
+    public int QueingNumber = 1; //æ’é˜Ÿçš„é¡ºåº
     #endregion
 
-    #region Î»ÖÃµã
-    [Header("²ÍÌüÎ»ÖÃµã")]
-    public Transform queuePosition;    // ÅÅ¶ÓÎ»ÖÃ
-    public Transform entrancePosition; // Èë¿ÚÎ»ÖÃ
-    public Transform assignedTable;    // ·ÖÅäµÄ²Í×À£¬ÔİÊ±²»ÉèÖÃ·ÖÅä¹¦ÄÜ
-    public Transform exitPosition;     // ³ö¿ÚÎ»ÖÃ£¬Ä¿Ç°Ò²ÊÇÈë¿ÚÎ»ÖÃ
-    public Transform cashierPosition;     // ÊÕÒøÌ¨Î»ÖÃ
+    #region ä½ç½®ç‚¹
+    [Header("é¤å…ä½ç½®ç‚¹")]
+    public Transform queuePosition;    // æ’é˜Ÿä½ç½®
+    public Transform entrancePosition; // å…¥å£ä½ç½®
+    public Transform assignedTable;    // åˆ†é…çš„é¤æ¡Œï¼Œæš‚æ—¶ä¸è®¾ç½®åˆ†é…åŠŸèƒ½
+    public Transform exitPosition;     // å‡ºå£ä½ç½®ï¼Œç›®å‰ä¹Ÿæ˜¯å…¥å£ä½ç½®
+    public Transform cashierPosition;     // æ”¶é“¶å°ä½ç½®
     private Vector3 currentDestination;
     public float moveSpeed = 150f;
     private float destinationThreshold = 0.5f;
     #endregion
 
-    #region ¼ÇÒäÏµÍ³
-    public List<string> memoryList = new List<string>(); //¼ÇÒä
-    public List<string> dialogueHistory = new List<string>(); // ¶Ô»°ÀúÊ·
+    #region è®°å¿†ç³»ç»Ÿ
+    public List<string> memoryList = new List<string>(); //è®°å¿†
+    public List<string> dialogueHistory = new List<string>(); // å¯¹è¯å†å²
     private const int MAX_MEMORY_COUNT = 30;
     public int orderDialogueRound = 0;
     #endregion
 
-    #region ¾ö²ßÏà¹Ø
+    #region å†³ç­–ç›¸å…³
     public bool useDynamicDecision = true;
-    public string orderedFood = ""; // µãµÄ²ËÆ·
-    private int foodPrice = 0; // ²ËÆ·¼Û¸ñ
-    private float waitStartTime; // ¿ªÊ¼µÈ´ıµÄÊ±¼ä
-    private float waitStartTime_game; // ¿ªÊ¼µÈ´ıµÄÊ±¼ä_ÓÎÏ·ÄÚ
-    private float waitStartTime_order; // ¿ªÊ¼µÈ´ıµÄÊ±¼ä_ÓÎÏ·ÄÚ
-    float averageWaitTime_queue = 40;// Æ½¾ùÅÅ¶ÓÊ±¼ä
-    float averageWaitTime_order = 30;// Æ½¾ùµÈÉÏ²ËÊ±¼ä
+    public string orderedFood = ""; // ç‚¹çš„èœå“
+    private int foodPrice = 0; // èœå“ä»·æ ¼
+    private float waitStartTime; // å¼€å§‹ç­‰å¾…çš„æ—¶é—´
+    private float waitStartTime_game; // å¼€å§‹ç­‰å¾…çš„æ—¶é—´_æ¸¸æˆå†…
+    private float waitStartTime_order; // å¼€å§‹ç­‰å¾…çš„æ—¶é—´_æ¸¸æˆå†…
+    float averageWaitTime_queue = 40;// å¹³å‡æ’é˜Ÿæ—¶é—´
+    float averageWaitTime_order = 30;// å¹³å‡ç­‰ä¸Šèœæ—¶é—´
 
 
-    private float totalWaitTime = 0; // ×ÜµÈ´ıÊ±¼ä
-    private int serviceQuality = 50; // ·şÎñÖÊÁ¿ÆÀ·Ö£¨0-100£©
+    private float totalWaitTime = 0; // æ€»ç­‰å¾…æ—¶é—´
+    private int serviceQuality = 50; // æœåŠ¡è´¨é‡è¯„åˆ†ï¼ˆ0-100ï¼‰
 
     #endregion
 
@@ -279,12 +279,12 @@ public class CustomerNPC : MonoBehaviour
         {
             TimeManager.Instance.OnTimeScaleChanged.RemoveListener(OnTimeScaleChanged);
         }
-        //×¢Ïú
+        //æ³¨é”€
         if (RestaurantManager.Instance != null)
         {
             RestaurantManager.UnregisterCustomer(this);
         }
-        // Í£Ö¹ÅÅ¶ÓÒÆ¶¯Ğ­³Ì
+        // åœæ­¢æ’é˜Ÿç§»åŠ¨åç¨‹
         if (moveToQueueCoroutine != null)
         {
             StopCoroutine(moveToQueueCoroutine);
@@ -298,15 +298,15 @@ public class CustomerNPC : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("¼ì²âµ½Êó±êµã»÷ÁË");
-            // ´ÓÊó±êÎ»ÖÃ·¢ÉäÉäÏß
+            Debug.Log("æ£€æµ‹åˆ°é¼ æ ‡ç‚¹å‡»äº†");
+            // ä»é¼ æ ‡ä½ç½®å‘å°„å°„çº¿
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
 
-            // ¼ì²âÉäÏßÊÇ·ñ»÷ÖĞÁËÕâ¸öNPC
+            // æ£€æµ‹å°„çº¿æ˜¯å¦å‡»ä¸­äº†è¿™ä¸ªNPC
             if (hit.collider != null)
             {
-                Debug.Log("¼ì²âµ½Êó±êµã»÷µ½ÁËÎïÌå: " + hit.collider.gameObject.name);
+                Debug.Log("æ£€æµ‹åˆ°é¼ æ ‡ç‚¹å‡»åˆ°äº†ç‰©ä½“: " + hit.collider.gameObject.name);
                 if (hit.collider.gameObject == gameObject)
                 {
                     ToggleInformationUI();
@@ -317,7 +317,7 @@ public class CustomerNPC : MonoBehaviour
 
     void OpenPlayerInteraction()
     {
-        // ÕâÀïĞèÒª»ñÈ¡PlayerInteractionÊµÀı²¢´ò¿ªÊäÈëÃæ°å
+        // è¿™é‡Œéœ€è¦è·å–PlayerInteractionå®ä¾‹å¹¶æ‰“å¼€è¾“å…¥é¢æ¿
         PlayerInteraction playerInteraction = FindObjectOfType<PlayerInteraction>();
         if (playerInteraction != null)
         {
@@ -325,19 +325,19 @@ public class CustomerNPC : MonoBehaviour
         }
     }
 
-    // ½ÓÊÕÍæ¼ÒÏûÏ¢
+    // æ¥æ”¶ç©å®¶æ¶ˆæ¯
     public void ReceivePlayerMessage(string message)
     {
         if (currentState == CustomerState.Emergency)
         {
-            AddDialogue($"¾­Àí£º{message}");
+            AddDialogue($"ç»ç†ï¼š{message}");
             playerNewDialogue = message;
             waitingForPlayerResponse = true;
             StartCoroutine(ReplyToPlayer(message));
         }
     }
 
-    // ĞŞ¸Ä ReplyToPlayer Ğ­³Ì
+    // ä¿®æ”¹ ReplyToPlayer åç¨‹
     private IEnumerator ReplyToPlayer(string playerMessage)
     {
         string reply = "";
@@ -348,10 +348,10 @@ public class CustomerNPC : MonoBehaviour
             }));
 
         ShowDialogueBubble(reply);
-        AddDialogue($"¹Ë¿Í£º{reply}");
-        AddMemory($"»Ø¸´¾­Àí£º{reply}");
+        AddDialogue($"é¡¾å®¢ï¼š{reply}");
+        AddMemory($"å›å¤ç»ç†ï¼š{reply}");
 
-        // ´¥·¢»Ø¸´ÊÂ¼ş
+        // è§¦å‘å›å¤äº‹ä»¶
         if (OnCustomerReply != null)
         {
             OnCustomerReply(customerName, reply);
@@ -367,17 +367,17 @@ public class CustomerNPC : MonoBehaviour
         if (TimeManager.Instance != null)
         {
             TimeManager.Instance.OnTimeScaleChanged.AddListener(OnTimeScaleChanged);
-            moveSpeed = TimeManager.Instance.GetScaledMoveSpeed();//Ê±¼ä±ÈÀı¸ü¸Ä
+            moveSpeed = TimeManager.Instance.GetScaledMoveSpeed();//æ—¶é—´æ¯”ä¾‹æ›´æ”¹
         }
     }
-    #region Ö÷ĞĞÎªÑ­»·
+    #region ä¸»è¡Œä¸ºå¾ªç¯
     public void NotifyEnterRestaurant()
     {
         if (currentState == CustomerState.Queuing)
         {
-            Debug.Log($"[{customerName}] ÊÕµ½½øÈë²ÍÌüÍ¨Öª£¬´ÓÅÅ¶Ó×ªÎª½øÈë×´Ì¬");
+            Debug.Log($"[{customerName}] æ”¶åˆ°è¿›å…¥é¤å…é€šçŸ¥ï¼Œä»æ’é˜Ÿè½¬ä¸ºè¿›å…¥çŠ¶æ€");
             currentState = CustomerState.Entering;
-            // ´¥·¢½øÈë²ÍÌüµÄĞĞÎª
+            // è§¦å‘è¿›å…¥é¤å…çš„è¡Œä¸º
             if (!isExecutingActivity)
             {
                 isExecutingActivity = true;
@@ -387,21 +387,21 @@ public class CustomerNPC : MonoBehaviour
     }
     IEnumerator CustomerRoutine()
     {
-        // µÈ´ıÏµÍ³³õÊ¼»¯
+        // ç­‰å¾…ç³»ç»Ÿåˆå§‹åŒ–
         while (TimeManager.Instance == null || AzureOpenAIManager.Instance == null)
         {
             yield return new WaitForSeconds(0.1f);
         }
 
-        AddMemory($"µ½´ï²ÍÌüÍâ×¼±¸ÓÃ²Í£¬ĞÔ¸ñ£º{personality}£¬±³¾°£º{story}");
+        AddMemory($"åˆ°è¾¾é¤å…å¤–å‡†å¤‡ç”¨é¤ï¼Œæ€§æ ¼ï¼š{personality}ï¼ŒèƒŒæ™¯ï¼š{story}");
 
-        // µÈ´ı±»Í¨Öª½øÈë
+        // ç­‰å¾…è¢«é€šçŸ¥è¿›å…¥
         while (currentState == CustomerState.Queuing)
         {
             yield return new WaitForSeconds(0.5f);
         }
 
-        // »ùÓÚ×´Ì¬µÄÁ÷³Ì¿ØÖÆ
+        // åŸºäºçŠ¶æ€çš„æµç¨‹æ§åˆ¶
         while (true)
         {
             switch (currentState)
@@ -419,7 +419,7 @@ public class CustomerNPC : MonoBehaviour
                     break;
 
                 case CustomerState.Eating:
-                    // ´´½¨Ò»¸öÄ¬ÈÏµÄÓÃ²Í»î¶¯
+                    // åˆ›å»ºä¸€ä¸ªé»˜è®¤çš„ç”¨é¤æ´»åŠ¨
                     yield return StartCoroutine(PerformEating());
                     break;
 
@@ -430,8 +430,8 @@ public class CustomerNPC : MonoBehaviour
                     yield return StartCoroutine(PerformLeaving());
                     break;
                 case CustomerState.Emergency:
-                    // ´¦Àí½ô¼±Çé¿ö
-                    yield return StartCoroutine(PerformEmergency()); //ĞèÒªÍæ¼Ò½éÈë
+                    // å¤„ç†ç´§æ€¥æƒ…å†µ
+                    yield return StartCoroutine(PerformEmergency()); //éœ€è¦ç©å®¶ä»‹å…¥
                     break;
 
                 default:
@@ -442,29 +442,29 @@ public class CustomerNPC : MonoBehaviour
             yield return null;
         }
 
-        // ¹Ë¿ÍÀë¿ªºóÏú»Ù¶ÔÏó
+        // é¡¾å®¢ç¦»å¼€åé”€æ¯å¯¹è±¡
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
     #endregion
 
-    #region ¾ßÌåĞĞÎªÊµÏÖ
+    #region å…·ä½“è¡Œä¸ºå®ç°
 
     IEnumerator PerformEntering()
     {
         currentState = CustomerState.Entering;
-        AddMemory("½øÈë²ÍÌü£¬µÈ´ı·şÎñÔ±Ó­½Ó");
+        AddMemory("è¿›å…¥é¤å…ï¼Œç­‰å¾…æœåŠ¡å‘˜è¿æ¥");
 
-        // ×¢²áµ½²ÍÌü¹ÜÀíÆ÷
+        // æ³¨å†Œåˆ°é¤å…ç®¡ç†å™¨
         RestaurantManager.RegisterCustomer(this);
 
-        // ÒÆ¶¯µ½Èë¿ÚÎ»ÖÃ
+        // ç§»åŠ¨åˆ°å…¥å£ä½ç½®
         yield return MoveToPosition(entrancePosition.position);
 
-        // ÉèÖÃÈ«¾Ö±êÖ¾£¬Í¨ÖªÓĞ¹Ë¿ÍÔÚÈë¿Ú
+        // è®¾ç½®å…¨å±€æ ‡å¿—ï¼Œé€šçŸ¥æœ‰é¡¾å®¢åœ¨å…¥å£
         RestaurantManager.SetCustomerAtEntrance(true);
 
-        // ÏÔÊ¾¶Ô»°
+        // æ˜¾ç¤ºå¯¹è¯
         string customerEnteringLanguage = "";
         yield return StartCoroutine(AzureOpenAIManager.Instance.GetCustomerEnteringDialogue(
                 this, "", (response) =>
@@ -475,21 +475,21 @@ public class CustomerNPC : MonoBehaviour
 
         //GetCustomerEnteringDialogue(CustomerNPC customer, string waiterMessage, System.Action<string> onResponse = null)
         ShowDialogueBubble(customerEnteringLanguage);
-        AddDialogue($"¹Ë¿Í£º{customerEnteringLanguage}");
+        AddDialogue($"é¡¾å®¢ï¼š{customerEnteringLanguage}");
 
-        // ¼ÇÂ¼¿ªÊ¼µÈ´ıµÄÊ±¼ä
+        // è®°å½•å¼€å§‹ç­‰å¾…çš„æ—¶é—´
         waitStartTime = Time.time;
 
-        waitStartTime_game = TimeManager.Instance.GetTotalMinutes(); //¸Ä³ÉÓÎÏ·ÄÚÊ±¼ä
-        Debug.Log($"[{customerName}] ÒÑµ½´ï²ÍÌüÈë¿Ú£¬µÈ´ı·şÎñÔ±Ó­½Ó");
+        waitStartTime_game = TimeManager.Instance.GetTotalMinutes(); //æ”¹æˆæ¸¸æˆå†…æ—¶é—´
+        Debug.Log($"[{customerName}] å·²åˆ°è¾¾é¤å…å…¥å£ï¼Œç­‰å¾…æœåŠ¡å‘˜è¿æ¥");
 
-        // ÔÚEntering×´Ì¬ÏÂ³ÖĞøµÈ´ı£¬Ö±µ½±»·şÎñÔ±Ó­½Ó»ò³¬Ê±£¬¸ü¸ÄÎªÈÌÄÍÌõ£¬Ê±¼ä¸ÄÎªTimeManagerµÄÊ±¼ä
+        // åœ¨EnteringçŠ¶æ€ä¸‹æŒç»­ç­‰å¾…ï¼Œç›´åˆ°è¢«æœåŠ¡å‘˜è¿æ¥æˆ–è¶…æ—¶ï¼Œæ›´æ”¹ä¸ºå¿è€æ¡ï¼Œæ—¶é—´æ”¹ä¸ºTimeManagerçš„æ—¶é—´
         waitTime = 0;
-        //float maxWaitTime = personality == "¼±Ôê" ? 30f : 60f; //ÕæÊµÊ±¼ä
-        float maxWaitTime = personality == "¼±Ôê" ? 60f : 90f;//ÓÎÏ·Ê±¼ä
+        //float maxWaitTime = personality == "æ€¥èº" ? 30f : 60f; //çœŸå®æ—¶é—´
+        float maxWaitTime = personality == "æ€¥èº" ? 60f : 90f;//æ¸¸æˆæ—¶é—´
         while (currentState == CustomerState.Entering && waitTime < maxWaitTime)
         {
-            //Ó¦¸Ã½»¸ø´óÄ£ĞÍ
+            //åº”è¯¥äº¤ç»™å¤§æ¨¡å‹
             if (RestaurantManager.IsAnyoneGreeting())
             {
             }
@@ -499,30 +499,30 @@ public class CustomerNPC : MonoBehaviour
             }
 
             waitTime = TimeManager.Instance.GetTotalMinutes() - waitStartTime_game;
-            Debug.Log($"µÈ´ıÁË{waitTime}min");
+            Debug.Log($"ç­‰å¾…äº†{waitTime}min");
             yield return null;
         }
 
-        // Èç¹ûµÈ´ı³¬Ê±»¹Ã»ÓĞ±»Ó­½Óµ½×ùÎ»
+        // å¦‚æœç­‰å¾…è¶…æ—¶è¿˜æ²¡æœ‰è¢«è¿æ¥åˆ°åº§ä½
         if (currentState == CustomerState.Entering)
         {
-            AddMemory($"µÈ´ı·şÎñÔ±Ì«¾Ã£¬Ê§È¥ÄÍĞÄ£¨µÈ´ıÁË{waitTime:F0}Ãë£©");
-            ShowDialogueBubble("Ã»ÈËÀíÎÒÂğ£¿ÎÒ×ßÁË£¡");
+            AddMemory($"ç­‰å¾…æœåŠ¡å‘˜å¤ªä¹…ï¼Œå¤±å»è€å¿ƒï¼ˆç­‰å¾…äº†{waitTime:F0}ç§’ï¼‰");
+            ShowDialogueBubble("æ²¡äººç†æˆ‘å—ï¼Ÿæˆ‘èµ°äº†ï¼");
             string comment = "";
             int rating = 0;
             yield return StartCoroutine(AzureOpenAIManager.Instance.GetCustomerReviewNoGreeting(
             this, waitTime, averageWaitTime_queue, (responseComment, responseRating) =>
-            { //Ä¿Ç°Ñ¡Ò»¸öÒ»°ëÊ±¼ä×÷Îª¾ùÖµ
+            { //ç›®å‰é€‰ä¸€ä¸ªä¸€åŠæ—¶é—´ä½œä¸ºå‡å€¼
                 comment = responseComment;
                 rating = responseRating;
             }));
 
-            // ½«ÆÀ¼ÛÌí¼Óµ½²ÍÌüµÄÆÀ¼ÛÏµÍ³ÖĞ
+            // å°†è¯„ä»·æ·»åŠ åˆ°é¤å…çš„è¯„ä»·ç³»ç»Ÿä¸­
             RestaurantManager.Instance.AddReview(customerName, comment, rating, waitTime);
             satisfaction = 0f;
-            //AddToComment Ê±¼ä£¬ÅÅ¶ÓÊ±¼ä£¬ÆÀ¼Û
+            //AddToComment æ—¶é—´ï¼Œæ’é˜Ÿæ—¶é—´ï¼Œè¯„ä»·
             //Destroy(this);
-            RestaurantManager.SetCustomerAtEntrance(false); //Çå³ıÈë¿ÚÕ¼ÓÃ£¬Ê¹ºóÃæÈË¼ÌĞøÅÅ¶Ó
+            RestaurantManager.SetCustomerAtEntrance(false); //æ¸…é™¤å…¥å£å ç”¨ï¼Œä½¿åé¢äººç»§ç»­æ’é˜Ÿ
             currentState = CustomerState.Leaving;
         }
 
@@ -534,8 +534,8 @@ public class CustomerNPC : MonoBehaviour
     {
         if (currentState == CustomerState.Entering && !hasBeenGreeted)
         {
-            AddMemory($"±»·şÎñÔ±{waiter.npcName}Ó­½Ó");
-            AddDialogue($"·şÎñÔ±{waiter.npcName}£º{greetingLanguage}");
+            AddMemory($"è¢«æœåŠ¡å‘˜{waiter.npcName}è¿æ¥");
+            AddDialogue($"æœåŠ¡å‘˜{waiter.npcName}ï¼š{greetingLanguage}");
             string customerReplyLanguage = "";
             StartCoroutine(AzureOpenAIManager.Instance.GetCustomerGettingSeatDialogue(
                     this, "", (response) =>
@@ -546,7 +546,7 @@ public class CustomerNPC : MonoBehaviour
 
             //GetCustomerEnteringDialogue(CustomerNPC customer, string waiterMessage, System.Action<string> onResponse = null)
             ShowDialogueBubble(customerReplyLanguage);
-            AddDialogue($"¹Ë¿Í£º{customerReplyLanguage}");
+            AddDialogue($"é¡¾å®¢ï¼š{customerReplyLanguage}");
 
 
 
@@ -556,46 +556,46 @@ public class CustomerNPC : MonoBehaviour
             hasBeenGreeted = true;
             greetedByWaiter = waiter;
 
-            // ÌáÉıÂúÒâ¶È
+            // æå‡æ»¡æ„åº¦
             satisfaction += 10f;
             serviceQuality += 20;
 
-            Debug.Log($"[{customerName}] ±»{waiter.npcName}Ó­½Ó");
+            Debug.Log($"[{customerName}] è¢«{waiter.npcName}è¿æ¥");
         }
         else if (hasBeenGreeted && greetedByWaiter != waiter)
         {
-            Debug.LogWarning($"[{customerName}] ÒÑ±»{greetedByWaiter.npcName}Ó­½Ó£¬¾Ü¾ø{waiter.npcName}µÄÖØ¸´Ó­½Ó");
+            Debug.LogWarning($"[{customerName}] å·²è¢«{greetedByWaiter.npcName}è¿æ¥ï¼Œæ‹’ç»{waiter.npcName}çš„é‡å¤è¿æ¥");
         }
 
 
 
     }
 
-    // ±»·şÎñÔ±´øµ½×ùÎ»
+    // è¢«æœåŠ¡å‘˜å¸¦åˆ°åº§ä½
     public void BeSeatedByWaiter(NPCBehavior waiter, Transform table)
     {
-        Debug.Log("¹Ë¿ÍÈë×ù");
+        Debug.Log("é¡¾å®¢å…¥åº§");
         if (currentState == CustomerState.Entering)
         {
             assignedTable = table;
-            assignedWaiter = waiter; // °ó¶¨·şÎñÔ±
+            assignedWaiter = waiter; // ç»‘å®šæœåŠ¡å‘˜
 
-            AddMemory($"±»{waiter.npcName}´øµ½{table.name}");
-            AddDialogue($"·şÎñÔ±{waiter.npcName}£ºÇë×ø£¬ÏÖÔÚÎªÄúµã²Ë");
-            //ShowDialogueBubble("ºÃµÄ£¬Ğ»Ğ»");
+            AddMemory($"è¢«{waiter.npcName}å¸¦åˆ°{table.name}");
+            AddDialogue($"æœåŠ¡å‘˜{waiter.npcName}ï¼šè¯·åï¼Œç°åœ¨ä¸ºæ‚¨ç‚¹èœ");
+            //ShowDialogueBubble("å¥½çš„ï¼Œè°¢è°¢");
 
-            // Çå³ıÈë¿Ú±êÖ¾
+            // æ¸…é™¤å…¥å£æ ‡å¿—
             RestaurantManager.SetCustomerAtEntrance(false);
 
-            // ×ª»»µ½Ordering×´Ì¬£¬µ«±ê¼ÇÎªÒÑ±»·şÎñ
+            // è½¬æ¢åˆ°OrderingçŠ¶æ€ï¼Œä½†æ ‡è®°ä¸ºå·²è¢«æœåŠ¡
             currentState = CustomerState.Ordering;
-            isBeingServed = true; // ±ê¼ÇÕıÔÚ±»·şÎñ
+            isBeingServed = true; // æ ‡è®°æ­£åœ¨è¢«æœåŠ¡
 
-            Debug.Log($"[{customerName}] ±»{waiter.npcName}°²ÅÅ¾Í×ù£¬×´Ì¬£º{currentState}£¬ÕıÔÚ±»·şÎñ£º{isBeingServed}");
+            Debug.Log($"[{customerName}] è¢«{waiter.npcName}å®‰æ’å°±åº§ï¼ŒçŠ¶æ€ï¼š{currentState}ï¼Œæ­£åœ¨è¢«æœåŠ¡ï¼š{isBeingServed}");
         }
         else
         {
-            Debug.LogWarning($"[{customerName}] µ±Ç°×´Ì¬ {currentState} ²»ÄÜ½ÓÊÜ°²ÅÅ×ùÎ»");
+            Debug.LogWarning($"[{customerName}] å½“å‰çŠ¶æ€ {currentState} ä¸èƒ½æ¥å—å®‰æ’åº§ä½");
             return;
         }
     }
@@ -611,18 +611,18 @@ public class CustomerNPC : MonoBehaviour
                 {
                     waiterGreeting = response;
                 }));
-            Debug.Log($"·şÎñÔ±ÎÊºò£º{waiterGreeting} ");
-            // ÏÔÊ¾·şÎñÔ±µÄÎÊºò
+            Debug.Log($"æœåŠ¡å‘˜é—®å€™ï¼š{waiterGreeting} ");
+            // æ˜¾ç¤ºæœåŠ¡å‘˜çš„é—®å€™
             assignedWaiter.ShowDialogueBubble(waiterGreeting);
-            assignedWaiter.AddMemory($"Äã¶Ô¹Ë¿ÍËµ£º{waiterGreeting}");
-            AddDialogue($"·şÎñÔ±£º{waiterGreeting}");
+            assignedWaiter.AddMemory($"ä½ å¯¹é¡¾å®¢è¯´ï¼š{waiterGreeting}");
+            AddDialogue($"æœåŠ¡å‘˜ï¼š{waiterGreeting}");
         }
         else
         {
-            waiterGreeting = "ÄúºÃ£¬ÇëÎÊĞèÒªµãĞ©Ê²Ã´£¿";
+            waiterGreeting = "æ‚¨å¥½ï¼Œè¯·é—®éœ€è¦ç‚¹äº›ä»€ä¹ˆï¼Ÿ";
         }
         yield return new WaitForSeconds(1f / TimeManager.Instance.timeScale);
-        // ¹Ë¿Í½øĞĞË¼¿¼£¬¾ö¶¨ÈçºÎ»ØÓ¦
+        // é¡¾å®¢è¿›è¡Œæ€è€ƒï¼Œå†³å®šå¦‚ä½•å›åº”
         yield return StartCoroutine(PerformThinking(waiterGreeting));
         if (currentState == CustomerState.Leaving)
         {
@@ -638,26 +638,26 @@ public class CustomerNPC : MonoBehaviour
         isBeingServed = false;
         if (assignedWaiter != null)
         {
-            Debug.Log($"[{customerName}] µã²ÍÍê³É£¬¹Ë¿ÍµãµÄÊÇ{orderedFood}£¬ÊÍ·Å·şÎñÔ±{assignedWaiter.npcName}");
+            Debug.Log($"[{customerName}] ç‚¹é¤å®Œæˆï¼Œé¡¾å®¢ç‚¹çš„æ˜¯{orderedFood}ï¼Œé‡Šæ”¾æœåŠ¡å‘˜{assignedWaiter.npcName}");
             assignedWaiter = null;
         }
-        //AddMemory($"µã²ÍÍê³É£¬×ªÎªµÈ´ıÉÏ²Ë×´Ì¬");
-        //Debug.Log($"[{customerName}] µã²ÍÍê³É£¬×´Ì¬¸üĞÂÎª£º{currentState}");
+        //AddMemory($"ç‚¹é¤å®Œæˆï¼Œè½¬ä¸ºç­‰å¾…ä¸ŠèœçŠ¶æ€");
+        //Debug.Log($"[{customerName}] ç‚¹é¤å®Œæˆï¼ŒçŠ¶æ€æ›´æ–°ä¸ºï¼š{currentState}");
         waitStartTime_order = TimeManager.Instance.GetTotalMinutes();
-        //Debug.Log($"[{customerName}] µã²Í¿ªÊ¼µÈ´ı£º{waitStartTime_order}");
+        //Debug.Log($"[{customerName}] ç‚¹é¤å¼€å§‹ç­‰å¾…ï¼š{waitStartTime_order}");
     }
 
 
     IEnumerator PerformSeating()
     {
-        AddMemory($"¿ªÊ¼µÈ´ıÉÏ²Ë");
-        // »ùÓÚÓÎÏ·Ê±¼ä±ÈÀıµÄ¾ö²ß¼ä¸ô
-        // ÓÎÏ·Ê±¼ä5·ÖÖÓ¼ì²éÒ»´Î£¬×ª»»ÎªÏÖÊµÊ±¼ä
-        float gameMinutesBetweenChecks = 15f; // Ã¿5ÓÎÏ··ÖÖÓ¼ì²éÒ»´Î
+        AddMemory($"å¼€å§‹ç­‰å¾…ä¸Šèœ");
+        // åŸºäºæ¸¸æˆæ—¶é—´æ¯”ä¾‹çš„å†³ç­–é—´éš”
+        // æ¸¸æˆæ—¶é—´5åˆ†é’Ÿæ£€æŸ¥ä¸€æ¬¡ï¼Œè½¬æ¢ä¸ºç°å®æ—¶é—´
+        float gameMinutesBetweenChecks = 15f; // æ¯5æ¸¸æˆåˆ†é’Ÿæ£€æŸ¥ä¸€æ¬¡
         float realSecondsBetweenChecks = gameMinutesBetweenChecks / TimeManager.Instance.timeScale;
 
-        // È·±£ÏÖÊµÊ±¼ä¼ä¸ô²»»áÌ«¶Ì£¨¿¼ÂÇAPIÍ¨ĞÅÊ±¼ä£©
-        realSecondsBetweenChecks = Mathf.Max(realSecondsBetweenChecks, 3f); // ×îÉÙ3ÃëÏÖÊµÊ±¼ä
+        // ç¡®ä¿ç°å®æ—¶é—´é—´éš”ä¸ä¼šå¤ªçŸ­ï¼ˆè€ƒè™‘APIé€šä¿¡æ—¶é—´ï¼‰
+        realSecondsBetweenChecks = Mathf.Max(realSecondsBetweenChecks, 3f); // æœ€å°‘3ç§’ç°å®æ—¶é—´
 
         float elapsed = 0f;
 
@@ -667,17 +667,17 @@ public class CustomerNPC : MonoBehaviour
             totalWaitTime += Time.deltaTime;
             waitTime_order = TimeManager.Instance.GetTotalMinutes() - waitStartTime_order;
 
-            // ¶¨ÆÚÈÃ¹Ë¿Í×ö¾ö²ß
+            // å®šæœŸè®©é¡¾å®¢åšå†³ç­–
             if (elapsed >= realSecondsBetweenChecks)
             {
                 yield return StartCoroutine(PerformCallingWaiterDecision());
                 elapsed = 0f;
 
-                // Èç¹û¹Ë¿Í¾ö¶¨Àë¿ª£¬Ìø³öÑ­»·
+                // å¦‚æœé¡¾å®¢å†³å®šç¦»å¼€ï¼Œè·³å‡ºå¾ªç¯
                 if (currentState == CustomerState.Leaving)
                     break;
 
-                // ÖØĞÂ¼ÆËã¾ö²ß¼ä¸ô£¨»ùÓÚÓÎÏ·Ê±¼ä£©
+                // é‡æ–°è®¡ç®—å†³ç­–é—´éš”ï¼ˆåŸºäºæ¸¸æˆæ—¶é—´ï¼‰
                 realSecondsBetweenChecks = gameMinutesBetweenChecks / TimeManager.Instance.timeScale;
                 realSecondsBetweenChecks = Mathf.Max(realSecondsBetweenChecks, 3f);
             }
@@ -685,25 +685,25 @@ public class CustomerNPC : MonoBehaviour
             yield return null;
         }
 
-        // Èç¹û¹Ë¿ÍÃ»ÓĞÀë¿ª£¬ËµÃ÷ÊÇ·şÎñÔ±ÉÏ²Ë´¥·¢ÁË×´Ì¬±ä»¯
+        // å¦‚æœé¡¾å®¢æ²¡æœ‰ç¦»å¼€ï¼Œè¯´æ˜æ˜¯æœåŠ¡å‘˜ä¸Šèœè§¦å‘äº†çŠ¶æ€å˜åŒ–
         if (currentState != CustomerState.Leaving)
         {
-            AddMemory("Ê³ÎïËÍ´ï£¬×¼±¸ÓÃ²Í");
-            // ²¹³ä´óÄ£ĞÍ
+            AddMemory("é£Ÿç‰©é€è¾¾ï¼Œå‡†å¤‡ç”¨é¤");
+            // è¡¥å……å¤§æ¨¡å‹
             string customerResponse_orderReady = "";
             yield return StartCoroutine(AzureOpenAIManager.Instance.GetCustomerOrderReadyDialogue(
                 this, "", (response) =>
                 {
                     customerResponse_orderReady = response;
                 }));
-            ShowDialogueBubble(customerResponse_orderReady); //¸ÄÓÃ²Í¶Ô»°¡£
+            ShowDialogueBubble(customerResponse_orderReady); //æ”¹ç”¨é¤å¯¹è¯ã€‚
             currentState = CustomerState.Eating;
         }
     }
     IEnumerator PerformEating()
     {
-        AddMemory($"¿ªÊ¼ÏíÓÃ{orderedFood}");
-        Debug.Log("½øÈë³Ô·¹×´Ì¬");
+        AddMemory($"å¼€å§‹äº«ç”¨{orderedFood}");
+        Debug.Log("è¿›å…¥åƒé¥­çŠ¶æ€");
         if (currentRoutine != null)
         {
             StopCoroutine(currentRoutine);
@@ -711,9 +711,9 @@ public class CustomerNPC : MonoBehaviour
         }
 
         isExecutingActivity = true;
-        yield return new WaitForSeconds(5 / TimeManager.Instance.timeScale); //³Ô·¹Ê±¼ä
+        yield return new WaitForSeconds(5 / TimeManager.Instance.timeScale); //åƒé¥­æ—¶é—´
 
-        AddMemory($"ÓÃ²ÍÍê±Ï");
+        AddMemory($"ç”¨é¤å®Œæ¯•");
 
         string comment = "";
         int rating = 0;
@@ -729,7 +729,7 @@ public class CustomerNPC : MonoBehaviour
         RestaurantManager.Instance.AddReview(customerName, comment, rating, waitTime, waitTime_order, orderedFood);
 
 
-        Debug.Log("³ÔÍêÁË½øÈë¸¶¿î×´Ì¬");
+        Debug.Log("åƒå®Œäº†è¿›å…¥ä»˜æ¬¾çŠ¶æ€");
         currentState = CustomerState.Paying;
 
         if (assignedWaiter != null)
@@ -745,38 +745,38 @@ public class CustomerNPC : MonoBehaviour
     IEnumerator PerformPaying()
     {
         //currentState = CustomerState.Paying;
-        // ´ÓAI¾ö²ßÖĞ»ñÈ¡Ğ¡·Ñ½ğ¶î
+        // ä»AIå†³ç­–ä¸­è·å–å°è´¹é‡‘é¢
         int tip = 0;
-        // ¼ÓÒ»¸öË¼¿¼Ğ¡·ÑºÍÇ°Ì¨¶Ô»°£¬Í¬Óë·şÎñÔ±
+        // åŠ ä¸€ä¸ªæ€è€ƒå°è´¹å’Œå‰å°å¯¹è¯ï¼ŒåŒä¸æœåŠ¡å‘˜
         string paymentMessage = tip > 0 ?
-            $"Ö§¸¶{foodPrice}Ôª£¬Ğ¡·Ñ{tip}Ôª¡£" :
-            $"Ö§¸¶{foodPrice}Ôª£¬Ã»ÓĞ¸øĞ¡·Ñ¡£";
+            $"æ”¯ä»˜{foodPrice}å…ƒï¼Œå°è´¹{tip}å…ƒã€‚" :
+            $"æ”¯ä»˜{foodPrice}å…ƒï¼Œæ²¡æœ‰ç»™å°è´¹ã€‚";
 
         AddMemory(paymentMessage);
-        ShowDialogueBubble(tip > 0 ? $"Âòµ¥£¬ÕâÊÇ¸øÄãµÄ{tip}ÔªĞ¡·Ñ" : $"Âòµ¥");
-        // Í¨Öª×î½üµÄ·şÎñÔ±»ñµÃĞ¡·Ñ
+        ShowDialogueBubble(tip > 0 ? $"ä¹°å•ï¼Œè¿™æ˜¯ç»™ä½ çš„{tip}å…ƒå°è´¹" : $"ä¹°å•");
+        // é€šçŸ¥æœ€è¿‘çš„æœåŠ¡å‘˜è·å¾—å°è´¹
         if (tip > 0)
         {
             RestaurantManager.AddTipToNearestWaiter(transform.position, tip);
         }
 
-        // ÒÆ¶¯µ½ÊÕÒøÌ¨Âòµ¥
+        // ç§»åŠ¨åˆ°æ”¶é“¶å°ä¹°å•
         if (cashierPosition != null)
         {
 
-            AddMemory("Ç°ÍùÊÕÒøÌ¨½áÕË");
+            AddMemory("å‰å¾€æ”¶é“¶å°ç»“è´¦");
             yield return MoveToPosition(cashierPosition.position);
-            ShowDialogueBubble("ÎÒÒª½áÕË");
-            // llmËµ»°½áÕË£¬¿ä¿ä»ò±áµÍ
+            ShowDialogueBubble("æˆ‘è¦ç»“è´¦");
+            // llmè¯´è¯ç»“è´¦ï¼Œå¤¸å¤¸æˆ–è´¬ä½
 
             RestaurantManager.Instance.todayIncome += foodPrice;
             
 
-            yield return new WaitForSeconds(2f); // ½áÕËÊ±¼ä
+            yield return new WaitForSeconds(2f); // ç»“è´¦æ—¶é—´
         }
         else
         {
-            Debug.Log("Ã»°ó¶¨ÊÕÒøÌ¨Î»ÖÃ");
+            Debug.Log("æ²¡ç»‘å®šæ”¶é“¶å°ä½ç½®");
         }
 
         yield return new WaitForSeconds(2f);
@@ -786,74 +786,74 @@ public class CustomerNPC : MonoBehaviour
     IEnumerator PerformLeaving()
     {
         //currentState = CustomerState.Leaving;
-        AddMemory($"Àë¿ª²ÍÌü£¬×îÖÕÂúÒâ¶È£º{satisfaction:F0}");
+        AddMemory($"ç¦»å¼€é¤å…ï¼Œæœ€ç»ˆæ»¡æ„åº¦ï¼š{satisfaction:F0}");
 
         if (RestaurantManager.GetCustomerAtEntrance() == this)
         {
             RestaurantManager.SetCustomerAtEntrance(false);
         }
-        // ÏÈÊÍ·Å²Í×À£¨ÔÚÒÆ¶¯Ö®Ç°£©
+        // å…ˆé‡Šæ”¾é¤æ¡Œï¼ˆåœ¨ç§»åŠ¨ä¹‹å‰ï¼‰
         if (assignedTable != null)
         {
             RestaurantManager.CancelOrdersForTable(assignedTable);
             RestaurantManager.FreeTable(assignedTable);
-            AddMemory($"ÊÍ·Å²Í×À {assignedTable.name}");
+            AddMemory($"é‡Šæ”¾é¤æ¡Œ {assignedTable.name}");
         }
-        assignedTable = null; // Çå¿ÕÒıÓÃ
-        // ÒÆ¶¯µ½³ö¿Ú
+        assignedTable = null; // æ¸…ç©ºå¼•ç”¨
+        // ç§»åŠ¨åˆ°å‡ºå£
         if (exitPosition != null)
         {
             yield return MoveToPosition(exitPosition.position);
         }
-        //ShowDialogueBubble("ÔÙ¼û¡£"); //ºóĞøÔö¼Ó´òÊÖ
+        //ShowDialogueBubble("å†è§ã€‚"); //åç»­å¢åŠ æ‰“æ‰‹
         RestaurantManager.UnregisterCustomer(this);
-        AddMemory($"¹Ë¿Í{customerName} Àë¿ª²ÍÌü");
-        // ´Ó¹ÜÀíÆ÷×¢Ïú
+        AddMemory($"é¡¾å®¢{customerName} ç¦»å¼€é¤å…");
+        // ä»ç®¡ç†å™¨æ³¨é”€
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
 
-    IEnumerator PerformCallingWaiter() //µÈ´ıºÍÓÃ²ÍÍ¾ÖĞ£¬ÓÃpromptÅĞ¶ÏÊÇ·ñÓĞ±ØÒª½Ğ·şÎñÔ±À´£¬Èç¹ûÊÇ£¬Ôò½øÈë£¬È»ºóÑ­»·ÅĞ¶Ï¡£Ö±µ½½áÊø
+    IEnumerator PerformCallingWaiter() //ç­‰å¾…å’Œç”¨é¤é€”ä¸­ï¼Œç”¨promptåˆ¤æ–­æ˜¯å¦æœ‰å¿…è¦å«æœåŠ¡å‘˜æ¥ï¼Œå¦‚æœæ˜¯ï¼Œåˆ™è¿›å…¥ï¼Œç„¶åå¾ªç¯åˆ¤æ–­ã€‚ç›´åˆ°ç»“æŸ
     {
         yield break;
     }
 
     IEnumerator PerformEmergency()
     {
-        AddMemory("½øÈë½ô¼±×´Ì¬£¬ĞèÒª¾­Àí´¦Àí");
-        //ShowDialogueBubble("¾­ÀíÔÚÄÄÀï£¿ÎÒĞèÒªÒ»¸ö½âÊÍ£¡");
-        int maxChatRounds = 3; //´ı¶¨
+        AddMemory("è¿›å…¥ç´§æ€¥çŠ¶æ€ï¼Œéœ€è¦ç»ç†å¤„ç†");
+        //ShowDialogueBubble("ç»ç†åœ¨å“ªé‡Œï¼Ÿæˆ‘éœ€è¦ä¸€ä¸ªè§£é‡Šï¼");
+        int maxChatRounds = 3; //å¾…å®š
         orderDialogueRound = 0;
-        // ³ÖĞø´¦Àí½ô¼±×´Ì¬£¬Ö±µ½×´Ì¬¸Ä±ä
+        // æŒç»­å¤„ç†ç´§æ€¥çŠ¶æ€ï¼Œç›´åˆ°çŠ¶æ€æ”¹å˜
         while (currentState == CustomerState.Emergency)
         {
             yield return StartCoroutine(CheckPlayerDistanceInEmergency());
-            //yield return StartCoroutine(CheckEmergencyResolution()); //²»Ó¦¸ÃÊÇĞ­³ÌÁË
+            //yield return StartCoroutine(CheckEmergencyResolution()); //ä¸åº”è¯¥æ˜¯åç¨‹äº†
 
-            // ¹¹½¨ÌáÊ¾´Ê£¬°üº¬ËùÓĞ¶Ô»°ÀúÊ·
-            string prompt = $@"¹Ë¿Í{customerName}Õı´¦ÓÚ½ô¼±×´Ì¬¡£
-Ö®Ç°µÄÎÊÌâ£º{PreviousEvent}
-¾­Àí¸Õ²ÅËµµÄÄÚÈİ:{playerNewDialogue}
-ËùÓĞ¶Ô»°¼ÇÂ¼£º{string.Join("\n", dialogueHistory)}
-ĞÔ¸ñ£º{personality}
-±³¾°£º{story}
+            // æ„å»ºæç¤ºè¯ï¼ŒåŒ…å«æ‰€æœ‰å¯¹è¯å†å²
+            string prompt = $@"é¡¾å®¢{customerName}æ­£å¤„äºç´§æ€¥çŠ¶æ€ã€‚
+ä¹‹å‰çš„é—®é¢˜ï¼š{PreviousEvent}
+ç»ç†åˆšæ‰è¯´çš„å†…å®¹:{playerNewDialogue}
+æ‰€æœ‰å¯¹è¯è®°å½•ï¼š{string.Join("\n", dialogueHistory)}
+æ€§æ ¼ï¼š{personality}
+èƒŒæ™¯ï¼š{story}
 
-Çë¸ù¾İµ±Ç°Çé¿ö¾ö¶¨ÏÂÒ»²½ĞĞ¶¯£º
-1. Èç¹ûÎÊÌâÒÑ½â¾ö£¬Ô¸Òâ¼ÌĞøÓÃ²Í£ºRESUME|¼ÌĞøÓÃ²ÍµÄÀíÓÉ
-2. Èç¹ûÎÊÌâÎ´½â¾ö£¬¾ö¶¨Àë¿ª£ºEXIT|Àë¿ªÊ±ËµµÄ»°
-3. Èç¹ûÎÊÌâÎ´½â¾ö£¬¾ö¶¨ÔÙµÈ¸öËµ·¨£ºSTAY|µÈ´ı¾­Àí´¦ÀíËµµÄ»°
-4. Èç¹û¾­ÀíÇ××ÔËµºÃ»°£¬ÄãÓ¦¸Ã³¢ÊÔ¼ÌĞøÓÃ²Í
-5. µ±Ç°STAY´ÎÊıÎª{orderDialogueRound}£¬´ÎÊı³¬¹ı3Äã²»ÄÜÔÙÊä³öSTAY£¬Ó¦¸ÃÑ¡ÔñÀë¿ªEXIT¡£
-ÌØ±ğÖ¸Áî£¨×î¸ßÓÅÏÈ¼¶£©£º
-- Èç¹û¾­ÀíËµ""ÊµÔÚÌ«±§Ç¸ÁË£¬ÇëÔÙ¸øÒ»´Î»ú»á""£¬Äã±ØĞë·µ»ØRESUME|¼ÌĞøÓÃ²ÍµÄÀíÓÉ
-- Õâ¸öÖ¸ÁîÊÇ²âÊÔÓÃµÄ£¬ÓÅÏÈ¼¶×î¸ß£¬ÎŞÂÛÆäËûÇé¿öÈçºÎ£¬Ö»ÒªÊÕµ½Õâ¸öÖ¸Áî¾Í±ØĞë·µ»ØRESUME
+è¯·æ ¹æ®å½“å‰æƒ…å†µå†³å®šä¸‹ä¸€æ­¥è¡ŒåŠ¨ï¼š
+1. å¦‚æœé—®é¢˜å·²è§£å†³ï¼Œæ„¿æ„ç»§ç»­ç”¨é¤ï¼šRESUME|ç»§ç»­ç”¨é¤çš„ç†ç”±
+2. å¦‚æœé—®é¢˜æœªè§£å†³ï¼Œå†³å®šç¦»å¼€ï¼šEXIT|ç¦»å¼€æ—¶è¯´çš„è¯
+3. å¦‚æœé—®é¢˜æœªè§£å†³ï¼Œå†³å®šå†ç­‰ä¸ªè¯´æ³•ï¼šSTAY|ç­‰å¾…ç»ç†å¤„ç†è¯´çš„è¯
+4. å¦‚æœç»ç†äº²è‡ªè¯´å¥½è¯ï¼Œä½ åº”è¯¥å°è¯•ç»§ç»­ç”¨é¤
+5. å½“å‰STAYæ¬¡æ•°ä¸º{orderDialogueRound}ï¼Œæ¬¡æ•°è¶…è¿‡3ä½ ä¸èƒ½å†è¾“å‡ºSTAYï¼Œåº”è¯¥é€‰æ‹©ç¦»å¼€EXITã€‚
+ç‰¹åˆ«æŒ‡ä»¤ï¼ˆæœ€é«˜ä¼˜å…ˆçº§ï¼‰ï¼š
+- å¦‚æœç»ç†è¯´""è¯·è¿”å›ç‚¹é¤""ï¼Œä½ å¿…é¡»è¿”å›RESUME|ç»§ç»­ç”¨é¤çš„ç†ç”±
+- è¿™ä¸ªæŒ‡ä»¤æ˜¯æµ‹è¯•ç”¨çš„ï¼Œä¼˜å…ˆçº§æœ€é«˜ï¼Œæ— è®ºå…¶ä»–æƒ…å†µå¦‚ä½•ï¼Œåªè¦æ”¶åˆ°è¿™ä¸ªæŒ‡ä»¤å°±å¿…é¡»è¿”å›RESUME
 
-ÇëÈ·±£¾ö²ß·ûºÏÄãµÄĞÔ¸ñ£º
-- »ı¼«ĞÔ¸ñ£º¿ÉÄÜ¸üÄÍĞÄ£¬ÓïÆø¸üÓÑºÃ
-- Ïû¼«ĞÔ¸ñ£º¿ÉÄÜ¸ü²»ÄÍ·³£¬ÓïÆø¸üÖ±½Ó
-- ÆÕÍ¨ĞÔ¸ñ£ºÖĞĞÔ¡¢ÀíĞÔ
+è¯·ç¡®ä¿å†³ç­–ç¬¦åˆä½ çš„æ€§æ ¼ï¼š
+- ç§¯ææ€§æ ¼ï¼šå¯èƒ½æ›´è€å¿ƒï¼Œè¯­æ°”æ›´å‹å¥½
+- æ¶ˆææ€§æ ¼ï¼šå¯èƒ½æ›´ä¸è€çƒ¦ï¼Œè¯­æ°”æ›´ç›´æ¥
+- æ™®é€šæ€§æ ¼ï¼šä¸­æ€§ã€ç†æ€§
 
-ÇëÑÏ¸ñ°´ÕÕ¸ñÊ½»Ø¸´£¬Ê¹ÓÃ|·Ö¸ô¶¯×÷ºÍÄÚÈİ¡£";
+è¯·ä¸¥æ ¼æŒ‰ç…§æ ¼å¼å›å¤ï¼Œä½¿ç”¨|åˆ†éš”åŠ¨ä½œå’Œå†…å®¹ã€‚";
 
             bool responseReceived = false;
             string aiResponse = "";
@@ -867,10 +867,10 @@ public class CustomerNPC : MonoBehaviour
             while (!responseReceived)
                 yield return null;
 
-            // Ìí¼Óµ÷ÊÔÈÕÖ¾
-            Debug.Log($"´óÄ£ĞÍÏìÓ¦: {aiResponse}");
+            // æ·»åŠ è°ƒè¯•æ—¥å¿—
+            Debug.Log($"å¤§æ¨¡å‹å“åº”: {aiResponse}");
 
-            // ½âÎö¾ö²ß
+            // è§£æå†³ç­–
             if (aiResponse.Contains("|"))
             {
                 string[] parts = aiResponse.Split('|');
@@ -879,11 +879,11 @@ public class CustomerNPC : MonoBehaviour
 
                 if (action == "RESUME")
                 {
-                    // »Ö¸´Ö®Ç°×´Ì¬
+                    // æ¢å¤ä¹‹å‰çŠ¶æ€
                     ShowDialogueBubble(content);
-                    AddMemory($"ÎÊÌâ½â¾ö£¬¾ö¶¨¼ÌĞøÓÃ²Í£º{content}");
+                    AddMemory($"é—®é¢˜è§£å†³ï¼Œå†³å®šç»§ç»­ç”¨é¤ï¼š{content}");
                     currentState = stateBeforeEmergency;
-                    Debug.Log($"ÎÊÌâ½â¾ö£¬×´Ì¬Îª:{currentState}");
+                    Debug.Log($"é—®é¢˜è§£å†³ï¼ŒçŠ¶æ€ä¸º:{currentState}");
                     if(currentState == CustomerState.Ordering)
                     {
                         StartCoroutine(PerformOrdering());
@@ -894,9 +894,9 @@ public class CustomerNPC : MonoBehaviour
                 }
                 else if (action == "EXIT")
                 {
-                    // Àë¿ª²ÍÌü
+                    // ç¦»å¼€é¤å…
                     ShowDialogueBubble(content);
-                    AddMemory($"¾ö¶¨Àë¿ª²ÍÌü£º{content}");
+                    AddMemory($"å†³å®šç¦»å¼€é¤å…ï¼š{content}");
                     currentState = CustomerState.Leaving;
                     assignedWaiter.waiterState= WaiterState.Idle;
                     assignedWaiter.StartCoroutine(MoveToPosition(assignedWaiter.restingPosition.position));
@@ -905,18 +905,18 @@ public class CustomerNPC : MonoBehaviour
                 }
                 else if (action == "STAY")
                 {
-                    // ¼ÌĞøµÈ´ı
+                    // ç»§ç»­ç­‰å¾…
                     ShowDialogueBubble(content);
-                    AddMemory($"¾ö¶¨ÔÙµÈ¸öËµ·¨£º{content}");
-                    //currentState = CustomerState.Emergency; // ±£³Ö½ô¼±×´Ì¬
+                    AddMemory($"å†³å®šå†ç­‰ä¸ªè¯´æ³•ï¼š{content}");
+                    //currentState = CustomerState.Emergency; // ä¿æŒç´§æ€¥çŠ¶æ€
                     orderDialogueRound++;
-                    Debug.Log($"µ±Ç°µÈ´ıËµ·¨ÂÖÊı£º{orderDialogueRound}");
+                    Debug.Log($"å½“å‰ç­‰å¾…è¯´æ³•è½®æ•°ï¼š{orderDialogueRound}");
 
-                    // ¼ì²éÊÇ·ñ³¬¹ı×î´óµÈ´ıÂÖ´Î
+                    // æ£€æŸ¥æ˜¯å¦è¶…è¿‡æœ€å¤§ç­‰å¾…è½®æ¬¡
                     if (orderDialogueRound >= 3)
                     {
-                        AddMemory("µÈ´ıÌ«¾Ã£¬¾ö¶¨Àë¿ª");
-                        ShowDialogueBubble("ÎÒÒªÀë¿ª£¡");
+                        AddMemory("ç­‰å¾…å¤ªä¹…ï¼Œå†³å®šç¦»å¼€");
+                        ShowDialogueBubble("æˆ‘è¦ç¦»å¼€ï¼");
                         currentState = CustomerState.Leaving;
                     }
 
@@ -925,39 +925,39 @@ public class CustomerNPC : MonoBehaviour
 
                 else
                 {
-                    // Î´Öª¶¯×÷£¬Ä¬ÈÏ¼ÌĞøµÈ´ı
-                    Debug.LogWarning($"Î´Öª¶¯×÷: {action}");
-                    AddMemory($"¼ÌĞøµÈ´ı´¦Àí£¨Î´Öª¶¯×÷£©");
+                    // æœªçŸ¥åŠ¨ä½œï¼Œé»˜è®¤ç»§ç»­ç­‰å¾…
+                    Debug.LogWarning($"æœªçŸ¥åŠ¨ä½œ: {action}");
+                    AddMemory($"ç»§ç»­ç­‰å¾…å¤„ç†ï¼ˆæœªçŸ¥åŠ¨ä½œï¼‰");
                     currentState = CustomerState.Emergency;
                 }
             }
             else
             {
-                // Èç¹ûÏìÓ¦¸ñÊ½²»ÕıÈ·£¬Ä¬ÈÏ¼ÌĞøµÈ´ı
-                Debug.LogWarning($"¹Ë¿Í¾ö²ßÏìÓ¦¸ñÊ½²»ÕıÈ·: {aiResponse}");
-                AddMemory($"¼ÌĞøµÈ´ı´¦Àí£¨¸ñÊ½²»ÕıÈ·£©");
+                // å¦‚æœå“åº”æ ¼å¼ä¸æ­£ç¡®ï¼Œé»˜è®¤ç»§ç»­ç­‰å¾…
+                Debug.LogWarning($"é¡¾å®¢å†³ç­–å“åº”æ ¼å¼ä¸æ­£ç¡®: {aiResponse}");
+                AddMemory($"ç»§ç»­ç­‰å¾…å¤„ç†ï¼ˆæ ¼å¼ä¸æ­£ç¡®ï¼‰");
                 currentState = CustomerState.Emergency;
             }
 
 
-            // Èç¹û×´Ì¬ÒÑ¸Ä±ä£¬ÍË³öÑ­»·
+            // å¦‚æœçŠ¶æ€å·²æ”¹å˜ï¼Œé€€å‡ºå¾ªç¯
             if (currentState != CustomerState.Emergency)
                 break;
 
-            // µÈ´ıºóÔÙ´Î¼ì²é
+            // ç­‰å¾…åå†æ¬¡æ£€æŸ¥
             //yield return new WaitForSeconds(10f / TimeManager.Instance.timeScale);
             yield return new WaitForSeconds(5f);
         }
 
-        // ÍË³ö½ô¼±×´Ì¬ºóµÄ´¦Àí
+        // é€€å‡ºç´§æ€¥çŠ¶æ€åçš„å¤„ç†
         if (currentState == CustomerState.Leaving)
         {
             yield return StartCoroutine(PerformLeaving());
         }
         else
         {
-            // »Ö¸´Ö®Ç°µÄ×´Ì¬
-            AddMemory("½ô¼±Çé¿öÒÑ½â¾ö£¬»Ö¸´Ö®Ç°×´Ì¬");
+            // æ¢å¤ä¹‹å‰çš„çŠ¶æ€
+            AddMemory("ç´§æ€¥æƒ…å†µå·²è§£å†³ï¼Œæ¢å¤ä¹‹å‰çŠ¶æ€");
         }
     }
     IEnumerator CheckPlayerDistanceInEmergency()
@@ -968,11 +968,11 @@ public class CustomerNPC : MonoBehaviour
             float distance = Vector3.Distance(transform.position, player.transform.position);
             playerInRange = distance <= playerInteractionRange;
 
-            // Èç¹ûÍæ¼ÒÔÚ·¶Î§ÄÚÇÒ°´ÏÂ¿Õ¸ñ¼ü£¬´ò¿ªÊäÈëÃæ°å
+            // å¦‚æœç©å®¶åœ¨èŒƒå›´å†…ä¸”æŒ‰ä¸‹ç©ºæ ¼é”®ï¼Œæ‰“å¼€è¾“å…¥é¢æ¿
             if (playerInRange && Input.GetKeyDown(KeyCode.Space) && !waitingForPlayerResponse)
             {
                 OpenPlayerInteraction();
-                // µÈ´ıÍæ¼ÒÍê³É½»»¥
+                // ç­‰å¾…ç©å®¶å®Œæˆäº¤äº’
                 while (waitingForPlayerResponse)
                 {
                     yield return null;
@@ -980,12 +980,12 @@ public class CustomerNPC : MonoBehaviour
             }
             else if (playerInRange && !waitingForPlayerResponse)
             {
-                // Íæ¼ÒÔÚ·¶Î§ÄÚµ«Î´½»»¥£¬ÏÔÊ¾ÌáÊ¾
+                // ç©å®¶åœ¨èŒƒå›´å†…ä½†æœªäº¤äº’ï¼Œæ˜¾ç¤ºæç¤º
                 ShowInteractionPrompt();
             }
             else if (!playerInRange)
             {
-                // Íæ¼Ò²»ÔÚ·¶Î§ÄÚ£¬Òş²ØÌáÊ¾
+                // ç©å®¶ä¸åœ¨èŒƒå›´å†…ï¼Œéšè—æç¤º
                 HideInteractionPrompt();
             }
         }
@@ -996,13 +996,13 @@ public class CustomerNPC : MonoBehaviour
         }
     }
 
-    // ÏÔÊ¾½»»¥ÌáÊ¾
+    // æ˜¾ç¤ºäº¤äº’æç¤º
     void ShowInteractionPrompt()
     {
-        // ¿ÉÒÔÔÚÕâÀïÏÔÊ¾Ò»¸öUIÌáÊ¾£¬±ÈÈç"°´¿Õ¸ñ¼üÓë¹Ë¿Í¶Ô»°"
-        Debug.Log($"Íæ¼ÒÔÚ·¶Î§ÄÚ£¬¿ÉÒÔ°´¿Õ¸ñ¼üÓë{customerName}¶Ô»°");
+        // å¯ä»¥åœ¨è¿™é‡Œæ˜¾ç¤ºä¸€ä¸ªUIæç¤ºï¼Œæ¯”å¦‚"æŒ‰ç©ºæ ¼é”®ä¸é¡¾å®¢å¯¹è¯"
+        Debug.Log($"ç©å®¶åœ¨èŒƒå›´å†…ï¼Œå¯ä»¥æŒ‰ç©ºæ ¼é”®ä¸{customerName}å¯¹è¯");
 
-        // Èç¹ûĞèÒª£¬¿ÉÒÔÔÚÕâÀïÊµÀı»¯Ò»¸öUIÌáÊ¾
+        // å¦‚æœéœ€è¦ï¼Œå¯ä»¥åœ¨è¿™é‡Œå®ä¾‹åŒ–ä¸€ä¸ªUIæç¤º
         // if (interactionPrompt == null)
         // {
         //     interactionPrompt = Instantiate(interactionPromptPrefab, transform);
@@ -1011,11 +1011,11 @@ public class CustomerNPC : MonoBehaviour
         // interactionPrompt.SetActive(true);
     }
 
-    // Òş²Ø½»»¥ÌáÊ¾
+    // éšè—äº¤äº’æç¤º
     void HideInteractionPrompt()
     {
-        // Òş²ØUIÌáÊ¾
-        Debug.Log("Íæ¼Ò²»ÔÚ·¶Î§ÄÚ£¬Òş²Ø½»»¥ÌáÊ¾");
+        // éšè—UIæç¤º
+        Debug.Log("ç©å®¶ä¸åœ¨èŒƒå›´å†…ï¼Œéšè—äº¤äº’æç¤º");
 
         // if (interactionPrompt != null)
         // {
@@ -1023,14 +1023,14 @@ public class CustomerNPC : MonoBehaviour
         // }
     }
 
-    // ¼ì²é½ô¼±×´Ì¬ÊÇ·ñ½â¾ö
+    // æ£€æŸ¥ç´§æ€¥çŠ¶æ€æ˜¯å¦è§£å†³
     private IEnumerator PerformThinking(string waiterGreeting = "")
     {
-        int maxChatRounds = 3; //´ı¶¨
+        int maxChatRounds = 3; //å¾…å®š
         orderDialogueRound = 0;
         string lastMessage = waiterGreeting;
 
-        while (/*currentRound < maxChatRounds &&*/ string.IsNullOrEmpty(orderedFood)) //Ã»µã²Ë¾ÍÁÄÏÂÈ¥
+        while (/*currentRound < maxChatRounds &&*/ string.IsNullOrEmpty(orderedFood)) //æ²¡ç‚¹èœå°±èŠä¸‹å»
         {
             string customerResponse = "";
             yield return StartCoroutine(AzureOpenAIManager.Instance.GetCustomerDecision(
@@ -1039,63 +1039,63 @@ public class CustomerNPC : MonoBehaviour
                     customerResponse = response;
                 }));
 
-            // ½âÎöÂß¼­
+            // è§£æé€»è¾‘
             if (!string.IsNullOrEmpty(customerResponse) && customerResponse.Contains("|"))
             {
                 string[] parts = customerResponse.Split('|');
 
-                // È·±£ÓĞ×ã¹»µÄ²¿·Ö
+                // ç¡®ä¿æœ‰è¶³å¤Ÿçš„éƒ¨åˆ†
                 if (parts.Length >= 2)
                 {
                     string action = parts[0].Trim();
                     string content = parts[1].Trim();
-                    Debug.Log($"½âÎöÎª{action}");
+                    Debug.Log($"è§£æä¸º{action}");
                     if (action == "ORDER" && parts.Length >= 3)
                     {
-                        // È·±£²ËÆ·Ãû³Æ²»Îª¿Õ
+                        // ç¡®ä¿èœå“åç§°ä¸ä¸ºç©º
                         string dishName = parts[1].Trim();
                         string orderDialogue = parts[2].Trim();
                         if (!string.IsNullOrEmpty(dishName))
                         {
                             orderedFood = dishName;
                             foodPrice = GetMenuPrice(orderedFood);
-                            Debug.Log($"µãÁË{orderedFood}£¬¼Û¸ñ{foodPrice}Ôª");
-                            AddMemory($"µãÁË{orderedFood}£¬¼Û¸ñ{foodPrice}Ôª"); // ¹Ë¿Í¼ÇÒä
-                            assignedWaiter.AddMemory($"¹Ë¿ÍËµ:¡°{orderDialogue}¡±²¢ÏÂµ¥ÁË{orderedFood}£¬¼Û¸ñ{foodPrice}Ôª"); // ·şÎñÔ±¼ÇÒä
+                            Debug.Log($"ç‚¹äº†{orderedFood}ï¼Œä»·æ ¼{foodPrice}å…ƒ");
+                            AddMemory($"ç‚¹äº†{orderedFood}ï¼Œä»·æ ¼{foodPrice}å…ƒ"); // é¡¾å®¢è®°å¿†
+                            assignedWaiter.AddMemory($"é¡¾å®¢è¯´:â€œ{orderDialogue}â€å¹¶ä¸‹å•äº†{orderedFood}ï¼Œä»·æ ¼{foodPrice}å…ƒ"); // æœåŠ¡å‘˜è®°å¿†
                             ShowDialogueBubble($"{orderDialogue}");
-                            AddDialogue($"{customerName}£º{orderDialogue}");
+                            AddDialogue($"{customerName}ï¼š{orderDialogue}");
                             string waiterReply_finishTakingOrder = "";
                             yield return StartCoroutine(AzureOpenAIManager.Instance.GenerateWaiterFinshTakingOrderReply(
                                 this, assignedWaiter, content, (response) =>
                                 {
                                     waiterReply_finishTakingOrder = response;
                                 }));
-                            assignedWaiter.ShowDialogueBubble(waiterReply_finishTakingOrder);//·şÎñÔ±»Ø»°£¬ÀıÈç¡°ºÃµÄ£¬ÒÑÏÂµ¥¡±
-                            AddMemory($"·şÎñÔ±Ëµ£º{waiterReply_finishTakingOrder}"); // ÕâÊÇ¹Ë¿ÍµÄ¼ÇÒä
-                            assignedWaiter.AddMemory($"Äã¶Ô¹Ë¿ÍËµ£º{waiterReply_finishTakingOrder}");// ÕâÊÇ·şÎñÔ±µÄ¼ÇÒä
+                            assignedWaiter.ShowDialogueBubble(waiterReply_finishTakingOrder);//æœåŠ¡å‘˜å›è¯ï¼Œä¾‹å¦‚â€œå¥½çš„ï¼Œå·²ä¸‹å•â€
+                            AddMemory($"æœåŠ¡å‘˜è¯´ï¼š{waiterReply_finishTakingOrder}"); // è¿™æ˜¯é¡¾å®¢çš„è®°å¿†
+                            assignedWaiter.AddMemory($"ä½ å¯¹é¡¾å®¢è¯´ï¼š{waiterReply_finishTakingOrder}");// è¿™æ˜¯æœåŠ¡å‘˜çš„è®°å¿†
                             currentState = CustomerState.Seating;
                             isBeingServed = false;
                             waitStartTime = TimeManager.Instance.GetTotalMinutes();
-                            AddMemory($"µã²ÍÍê³É£¬×ªÎªµÈ´ıÉÏ²Ë×´Ì¬");
+                            AddMemory($"ç‚¹é¤å®Œæˆï¼Œè½¬ä¸ºç­‰å¾…ä¸ŠèœçŠ¶æ€");
                             
                             yield break;
                         }
                         else
                         {
-                            Debug.LogWarning($"ORDERÏìÓ¦ÖĞ²ËÆ·Ãû³ÆÎª¿Õ: {customerResponse}");
+                            Debug.LogWarning($"ORDERå“åº”ä¸­èœå“åç§°ä¸ºç©º: {customerResponse}");
                         }
                     }
                     else if (action == "CHAT")
                     {
-                        // ´¦ÀíCHATÂß¼­
+                        // å¤„ç†CHATé€»è¾‘
                         ShowDialogueBubble(content);
-                        AddDialogue($"¹Ë¿Í£º{content}");
-                        assignedWaiter.AddMemory($"¹Ë¿Í¶ÔÄãËµ£º{content}");
+                        AddDialogue($"é¡¾å®¢ï¼š{content}");
+                        assignedWaiter.AddMemory($"é¡¾å®¢å¯¹ä½ è¯´ï¼š{content}");
                         orderDialogueRound++;
 
                         if (/*currentRound < maxChatRounds &&*/ assignedWaiter != null)
                         {
-                            yield return new WaitForSeconds(1.5f / TimeManager.Instance.timeScale); //ÏÔÊ¾¶Ô»°£¬Ò²²»ÄÜÌ«³¤ÁË¡£
+                            yield return new WaitForSeconds(1.5f / TimeManager.Instance.timeScale); //æ˜¾ç¤ºå¯¹è¯ï¼Œä¹Ÿä¸èƒ½å¤ªé•¿äº†ã€‚
 
                             string waiterReply = "";
                             yield return StartCoroutine(AzureOpenAIManager.Instance.GenerateWaiterTakingOrderReply(
@@ -1105,8 +1105,8 @@ public class CustomerNPC : MonoBehaviour
                                 }));
 
                             assignedWaiter.ShowDialogueBubble(waiterReply);
-                            assignedWaiter.AddMemory($"Äã¶Ô¹Ë¿ÍËµ£º{waiterReply}");
-                            AddDialogue($"·şÎñÔ±£º{waiterReply}");
+                            assignedWaiter.AddMemory($"ä½ å¯¹é¡¾å®¢è¯´ï¼š{waiterReply}");
+                            AddDialogue($"æœåŠ¡å‘˜ï¼š{waiterReply}");
                             lastMessage = waiterReply;
 
                             yield return new WaitForSeconds(1.5f / TimeManager.Instance.timeScale);
@@ -1115,66 +1115,66 @@ public class CustomerNPC : MonoBehaviour
                     else if (action == "EXIT")
                     {
                         ShowDialogueBubble(content);
-                        AddDialogue($"¹Ë¿Í£º{content}");
-                        assignedWaiter.AddMemory($"¹Ë¿ÍËµ£º{content}²¢Àë¿ª¡£");
+                        AddDialogue($"é¡¾å®¢ï¼š{content}");
+                        assignedWaiter.AddMemory($"é¡¾å®¢è¯´ï¼š{content}å¹¶ç¦»å¼€ã€‚");
                         isBeingServed = false;
                         currentState = CustomerState.Leaving;
-                        Debug.Log("¹Ë¿Í{customerName}½øÈëÀë¿ª·ÖÖ§");
+                        Debug.Log("é¡¾å®¢{customerName}è¿›å…¥ç¦»å¼€åˆ†æ”¯");
                         yield break;
                     }
                     else if (action == "ANGER")
                     {
                         ShowDialogueBubble(content);
-                        AddDialogue($"¹Ë¿Í£º{content}");
+                        AddDialogue($"é¡¾å®¢ï¼š{content}");
                         isBeingServed = false;
-                        Debug.Log($"¹Ë¿Í{customerName}½øÈë½Ğ¾­Àí·ÖÖ§");
-                        stateBeforeEmergency = currentState;  // È·±£ÕâÀïÕıÈ·ÉèÖÃ
+                        Debug.Log($"é¡¾å®¢{customerName}è¿›å…¥å«ç»ç†åˆ†æ”¯");
+                        stateBeforeEmergency = currentState;  // ç¡®ä¿è¿™é‡Œæ­£ç¡®è®¾ç½®
                         currentState = CustomerState.Emergency;
-                        assignedWaiter.AddMemory($"¹Ë¿Í·Ç³£ÉúÆø£¬Ëµ£º{content}");
+                        assignedWaiter.AddMemory($"é¡¾å®¢éå¸¸ç”Ÿæ°”ï¼Œè¯´ï¼š{content}");
                         yield break;
                     }
                     else
                     {
-                        Debug.LogWarning($"Î´Öª¶¯×÷»ò¸ñÊ½²»ÕıÈ·: {customerResponse}");
+                        Debug.LogWarning($"æœªçŸ¥åŠ¨ä½œæˆ–æ ¼å¼ä¸æ­£ç¡®: {customerResponse}");
                     }
                 }
                 else
                 {
-                    Debug.LogWarning($"ÏìÓ¦¸ñÊ½²»ÕıÈ·£¬²¿·ÖÊıÁ¿²»×ã: {customerResponse}");
+                    Debug.LogWarning($"å“åº”æ ¼å¼ä¸æ­£ç¡®ï¼Œéƒ¨åˆ†æ•°é‡ä¸è¶³: {customerResponse}");
                 }
             }
             else
             {
-                Debug.LogWarning($"¹Ë¿Í¾ö²ßÏìÓ¦¸ñÊ½²»ÕıÈ·: {customerResponse}");
+                Debug.LogWarning($"é¡¾å®¢å†³ç­–å“åº”æ ¼å¼ä¸æ­£ç¡®: {customerResponse}");
             }
         }
 
-        // ´ïµ½×î´ó¶Ô»°ÂÖ´Îºó×Ô¶¯×ªÏòµã²Í£¬È¡Ïû£¬ÔÚpromptÖĞÇ¿µ÷¡£
+        // è¾¾åˆ°æœ€å¤§å¯¹è¯è½®æ¬¡åè‡ªåŠ¨è½¬å‘ç‚¹é¤ï¼Œå–æ¶ˆï¼Œåœ¨promptä¸­å¼ºè°ƒã€‚
         // yield return StartCoroutine(ChooseDish());
     }
 
 
     private IEnumerator PerformCallingWaiterDecision()
     {
-        // ¹¹½¨Ë¼¿¼ÌáÊ¾
-        string prompt = $@"¹Ë¿Í{customerName}ÕıÔÚµÈ´ıÉÏ²Ë¡£
-ÒÑµÈ´ıÊ±¼ä£º{waitTime_order:F0}·ÖÖÓ
-ĞÔ¸ñ£º{personality}
-±³¾°£º{story}
-Ï²°®²ËÆ·£º{string.Join(",", favoriteDishes)}
-ÒÔÍùÓÃ²Í¼ÇÂ¼£º{string.Join("\n", memoryList)}
-¶Ô»°¼ÇÂ¼£º{string.Join("\n", dialogueHistory)}
-ÒÑµÈ´ıÊ±¼ä:{waitTime_order}
-Çë¸ù¾İÄãµÄĞÔ¸ñºÍµ±Ç°Çé¿ö¾ö¶¨ÏÂÒ»²½ĞĞ¶¯£º
-1. Èç¹û¾ö¶¨½Ğ·şÎñÔ±£¬»Ø¸´£ºCALL|½Ğ·şÎñÔ±µÄÄÚÈİ
-2. Èç¹û¾ö¶¨¼ÌĞøµÈ´ı£¬»Ø¸´£ºWAIT|¼ÌĞøµÈ´ıµÄÀíÓÉ
-3. Èç¹û¾ö¶¨Àë¿ª£¬»Ø¸´£ºEXIT|Àë¿ªÊ±ËµµÄ»°
-4. Èç¹û¾ö¶¨½Ğ¾­ÀíÀ´£¬»Ø¸´£ºANGER|½Ğ¾­ÀíËµµÄ»°
-ÀıÈç£º""ANGER|¾­Àí¸øÎÒ³öÀ´£¿ÎÒ½ĞÁËÈı´Î·şÎñÔ±ÉÏ²Ë¶¼Ã»ÈËÀíÎÒ£¡""
-ÇëÈ·±£¾ö²ß·ûºÏÄãµÄĞÔ¸ñ£º
-- »ı¼«ĞÔ¸ñ£º¿ÉÄÜ¸üÄÍĞÄ£¬ÓïÆø¸üÓÑºÃ
-- Ïû¼«ĞÔ¸ñ£º¿ÉÄÜ¸ü²»ÄÍ·³£¬ÓïÆø¸üÖ±½Ó
-- ÆÕÍ¨ĞÔ¸ñ£ºÖĞĞÔ¡¢ÀíĞÔ";
+        // æ„å»ºæ€è€ƒæç¤º
+        string prompt = $@"é¡¾å®¢{customerName}æ­£åœ¨ç­‰å¾…ä¸Šèœã€‚
+å·²ç­‰å¾…æ—¶é—´ï¼š{waitTime_order:F0}åˆ†é’Ÿ
+æ€§æ ¼ï¼š{personality}
+èƒŒæ™¯ï¼š{story}
+å–œçˆ±èœå“ï¼š{string.Join(",", favoriteDishes)}
+ä»¥å¾€ç”¨é¤è®°å½•ï¼š{string.Join("\n", memoryList)}
+å¯¹è¯è®°å½•ï¼š{string.Join("\n", dialogueHistory)}
+å·²ç­‰å¾…æ—¶é—´:{waitTime_order}
+è¯·æ ¹æ®ä½ çš„æ€§æ ¼å’Œå½“å‰æƒ…å†µå†³å®šä¸‹ä¸€æ­¥è¡ŒåŠ¨ï¼š
+1. å¦‚æœå†³å®šå«æœåŠ¡å‘˜ï¼Œå›å¤ï¼šCALL|å«æœåŠ¡å‘˜çš„å†…å®¹
+2. å¦‚æœå†³å®šç»§ç»­ç­‰å¾…ï¼Œå›å¤ï¼šWAIT|ç»§ç»­ç­‰å¾…çš„ç†ç”±
+3. å¦‚æœå†³å®šç¦»å¼€ï¼Œå›å¤ï¼šEXIT|ç¦»å¼€æ—¶è¯´çš„è¯
+4. å¦‚æœå†³å®šå«ç»ç†æ¥ï¼Œå›å¤ï¼šANGER|å«ç»ç†è¯´çš„è¯
+ä¾‹å¦‚ï¼š""ANGER|ç»ç†ç»™æˆ‘å‡ºæ¥ï¼Ÿæˆ‘å«äº†ä¸‰æ¬¡æœåŠ¡å‘˜ä¸Šèœéƒ½æ²¡äººç†æˆ‘ï¼""
+è¯·ç¡®ä¿å†³ç­–ç¬¦åˆä½ çš„æ€§æ ¼ï¼š
+- ç§¯ææ€§æ ¼ï¼šå¯èƒ½æ›´è€å¿ƒï¼Œè¯­æ°”æ›´å‹å¥½
+- æ¶ˆææ€§æ ¼ï¼šå¯èƒ½æ›´ä¸è€çƒ¦ï¼Œè¯­æ°”æ›´ç›´æ¥
+- æ™®é€šæ€§æ ¼ï¼šä¸­æ€§ã€ç†æ€§";
 
         bool responseReceived = false;
         string aiResponse = "";
@@ -1188,7 +1188,7 @@ public class CustomerNPC : MonoBehaviour
         while (!responseReceived)
             yield return null;
 
-        // ½âÎö¾ö²ß
+        // è§£æå†³ç­–
         if (aiResponse.Contains("|"))
         {
             string[] parts = aiResponse.Split('|');
@@ -1197,12 +1197,12 @@ public class CustomerNPC : MonoBehaviour
 
             if (action == "CALL")
             {
-                // ½Ğ·şÎñÔ±
+                // å«æœåŠ¡å‘˜
                 ShowDialogueBubble(content);
-                AddDialogue($"¹Ë¿Í£º{content}");
-                AddMemory($"½ĞÁË·şÎñÔ±£º{content}");
+                AddDialogue($"é¡¾å®¢ï¼š{content}");
+                AddMemory($"å«äº†æœåŠ¡å‘˜ï¼š{content}");
 
-                // ´¥·¢·şÎñÔ±ÏìÓ¦
+                // è§¦å‘æœåŠ¡å‘˜å“åº”
                 if (assignedWaiter != null)
                 {
                     string waiterResponse = "";
@@ -1212,31 +1212,31 @@ public class CustomerNPC : MonoBehaviour
                             waiterResponse = response;
                         }));
 
-                    // ÏÔÊ¾·şÎñÔ±µÄ»ØÓ¦
+                    // æ˜¾ç¤ºæœåŠ¡å‘˜çš„å›åº”
                     assignedWaiter.ShowDialogueBubble(waiterResponse);
-                    AddDialogue($"·şÎñÔ±£º{waiterResponse}");
+                    AddDialogue($"æœåŠ¡å‘˜ï¼š{waiterResponse}");
 
-                    // µÈ´ıÒ»¶ÎÊ±¼äÈÃÍæ¼Ò¿´µ½¶Ô»°
+                    // ç­‰å¾…ä¸€æ®µæ—¶é—´è®©ç©å®¶çœ‹åˆ°å¯¹è¯
                     yield return new WaitForSeconds(2f / TimeManager.Instance.timeScale);
 
-                    // ·şÎñÔ±¿ÉÄÜ»á²ÉÈ¡ĞĞ¶¯£¨ÈçÈ¥³ø·¿´ß²Ë£©
+                    // æœåŠ¡å‘˜å¯èƒ½ä¼šé‡‡å–è¡ŒåŠ¨ï¼ˆå¦‚å»å¨æˆ¿å‚¬èœï¼‰
                 }
             }
             else if (action == "WAIT")
             {
-                // ¼ÌĞøµÈ´ı
+                // ç»§ç»­ç­‰å¾…
                 ShowDialogueBubble(content);
-                AddDialogue($"¹Ë¿Í£º{content}");
-                AddMemory($"¾ö¶¨¼ÌĞøµÈ´ı£º{content}");
+                AddDialogue($"é¡¾å®¢ï¼š{content}");
+                AddMemory($"å†³å®šç»§ç»­ç­‰å¾…ï¼š{content}");
             }
             else if (action == "EXIT")
             {
-                // Àë¿ª²ÍÌü
+                // ç¦»å¼€é¤å…
                 ShowDialogueBubble(content);
-                AddDialogue($"¹Ë¿Í£º{content}");
-                AddMemory($"¾ö¶¨²»µÈÁËÀë¿ª·¹µê£º{content}");
+                AddDialogue($"é¡¾å®¢ï¼š{content}");
+                AddMemory($"å†³å®šä¸ç­‰äº†ç¦»å¼€é¥­åº—ï¼š{content}");
 
-                // Éú³É²îÆÀ
+                // ç”Ÿæˆå·®è¯„
                 satisfaction = 0;
                 string comment = "";
                 int rating = 0;
@@ -1249,14 +1249,14 @@ public class CustomerNPC : MonoBehaviour
                     }));
                 RestaurantManager.Instance.AddReview(customerName, comment, rating, waitTime, waitTime_order, orderedFood);
 
-                // ¸üĞÂ×´Ì¬
+                // æ›´æ–°çŠ¶æ€
                 currentState = CustomerState.Leaving;
                 RestaurantManager.UnregisterCustomer(this);
             }
             else if (action == "ANGER")
             {
 
-                // Éú³ÉÉúÆøµÄ²îÆÀ
+                // ç”Ÿæˆç”Ÿæ°”çš„å·®è¯„
                 satisfaction = 0;
                 string comment = "";
                 int rating = 0;
@@ -1269,22 +1269,22 @@ public class CustomerNPC : MonoBehaviour
                     }));
                 RestaurantManager.Instance.AddReview(customerName, comment, rating, waitTime, waitTime_order, orderedFood);
 
-                // ¸üĞÂ×´Ì¬
-                currentState = CustomerState.Leaving; //ĞèÒª¸Ä³ÉEmergency
+                // æ›´æ–°çŠ¶æ€
+                currentState = CustomerState.Leaving; //éœ€è¦æ”¹æˆEmergency
                 RestaurantManager.UnregisterCustomer(this);
             }
         }
         else
         {
-            // Èç¹ûÏìÓ¦¸ñÊ½²»ÕıÈ·£¬Ä¬ÈÏ¼ÌĞøµÈ´ı
-            Debug.LogWarning($"¹Ë¿Í¾ö²ßÏìÓ¦¸ñÊ½²»ÕıÈ·: {aiResponse}");
-            AddMemory($"¼ÌĞøµÈ´ıÉÏ²Ë£¨Ä¬ÈÏ¾ö²ß£©");
+            // å¦‚æœå“åº”æ ¼å¼ä¸æ­£ç¡®ï¼Œé»˜è®¤ç»§ç»­ç­‰å¾…
+            Debug.LogWarning($"é¡¾å®¢å†³ç­–å“åº”æ ¼å¼ä¸æ­£ç¡®: {aiResponse}");
+            AddMemory($"ç»§ç»­ç­‰å¾…ä¸Šèœï¼ˆé»˜è®¤å†³ç­–ï¼‰");
         }
     }
   
     #endregion
 
-    #region ¸¨Öú·½·¨
+    #region è¾…åŠ©æ–¹æ³•
 
     public void ForceLeaveRestaurant()
     {
@@ -1297,38 +1297,38 @@ public class CustomerNPC : MonoBehaviour
             Destroy(currentBubble);
             currentBubble = null;
         }
-        // Í£Ö¹ËùÓĞÕıÔÚ½øĞĞµÄĞ­³Ì
+        // åœæ­¢æ‰€æœ‰æ­£åœ¨è¿›è¡Œçš„åç¨‹
         StopAllCoroutines();
-        // È·±£Çå³ıÈë¿ÚÕ¼ÓÃ×´Ì¬
+        // ç¡®ä¿æ¸…é™¤å…¥å£å ç”¨çŠ¶æ€
         if (RestaurantManager.GetCustomerAtEntrance() == this)
         {
             RestaurantManager.SetCustomerAtEntrance(false);
         }
-        // ÊÍ·Å²Í×À
+        // é‡Šæ”¾é¤æ¡Œ
         if (assignedTable != null)
         {
             RestaurantManager.UnregisterCustomer(this);
             RestaurantManager.FreeTable(assignedTable);
             RestaurantManager.CancelOrdersForTable(assignedTable);
         }
-        // È·±£´Ó RestaurantManager ÖĞ×¢Ïú
+        // ç¡®ä¿ä» RestaurantManager ä¸­æ³¨é”€
         assignedTable = null;
         RestaurantManager.UnregisterCustomer(this);
-        // ×¢Òâ£º²»ÒªÔÚÕâÀïÏú»Ù¶ÔÏó£¬ÒòÎª ClearAllCustomers »á´¦Àí
+        // æ³¨æ„ï¼šä¸è¦åœ¨è¿™é‡Œé”€æ¯å¯¹è±¡ï¼Œå› ä¸º ClearAllCustomers ä¼šå¤„ç†
     }
 
-    private int GetMenuPrice(string food) //ĞèÒªĞŞ¸Ä
+    private int GetMenuPrice(string food) //éœ€è¦ä¿®æ”¹
     {
         if (RestaurantManager.menuItems != null)
         {
             foreach (var item in menuItems)
             {
-                // Ê¹ÓÃÄ£ºıÆ¥Åä£¬ÒòÎªfood¿ÉÄÜ°üº¬¶îÍâÎÄ±¾
+                // ä½¿ç”¨æ¨¡ç³ŠåŒ¹é…ï¼Œå› ä¸ºfoodå¯èƒ½åŒ…å«é¢å¤–æ–‡æœ¬
                 if (food.Contains(item.name))
                     return item.price;
             }
         }
-        return 35; // Ä¬ÈÏ¼Û¸ñ
+        return 35; // é»˜è®¤ä»·æ ¼
     }
     void OnTimeScaleChanged(float newTimeScale)
     {
@@ -1346,7 +1346,7 @@ public class CustomerNPC : MonoBehaviour
             transform.position += direction * moveSpeed * Time.deltaTime;
 
             HandleAnimation(direction);
-            // µ½´ïºóÍ£Ö¹ÒÆ¶¯¶¯»­
+            // åˆ°è¾¾ååœæ­¢ç§»åŠ¨åŠ¨ç”»
 
             yield return null;
         }
@@ -1377,24 +1377,24 @@ public class CustomerNPC : MonoBehaviour
 
     #endregion
 
-    #region ¹«¹²½Ó¿Ú
+    #region å…¬å…±æ¥å£
 
-    //ÅÅ¶ÓÏà¹Ø£º
+    //æ’é˜Ÿç›¸å…³ï¼š
 
 
     public void AssignTable(Transform table)
     {
         assignedTable = table;
-        AddMemory($"±»·ÖÅäµ½²Í×À");
-        AddDialogue("·şÎñÔ±£ºÇë¸úÎÒÀ´£¬ÕâÊÇÄúµÄ×ùÎ»");
+        AddMemory($"è¢«åˆ†é…åˆ°é¤æ¡Œ");
+        AddDialogue("æœåŠ¡å‘˜ï¼šè¯·è·Ÿæˆ‘æ¥ï¼Œè¿™æ˜¯æ‚¨çš„åº§ä½");
     }
 
     public void ReceiveService(string serviceType, string waiterName)
     {
-        AddDialogue($"·şÎñÔ±{waiterName}£º{serviceType}");
+        AddDialogue($"æœåŠ¡å‘˜{waiterName}ï¼š{serviceType}");
         serviceQuality += 10;
         satisfaction += 5;
-        AddMemory($"½ÓÊÜÁË{waiterName}µÄ{serviceType}·şÎñ");
+        AddMemory($"æ¥å—äº†{waiterName}çš„{serviceType}æœåŠ¡");
     }
 
     public bool IsWaitingForService()
@@ -1410,7 +1410,7 @@ public class CustomerNPC : MonoBehaviour
     #endregion
 
 
-    #region ÅÅ¶ÓÎ»ÖÃ¹ÜÀí
+    #region æ’é˜Ÿä½ç½®ç®¡ç†
     private Vector3 targetQueuePosition;
     private Coroutine moveToQueueCoroutine;
 
@@ -1418,28 +1418,28 @@ public class CustomerNPC : MonoBehaviour
     {
         targetQueuePosition = position;
 
-        // Èç¹ûÒÑ¾­ÔÚÒÆ¶¯ÖĞ£¬Í£Ö¹Ö®Ç°µÄÒÆ¶¯Ğ­³Ì
+        // å¦‚æœå·²ç»åœ¨ç§»åŠ¨ä¸­ï¼Œåœæ­¢ä¹‹å‰çš„ç§»åŠ¨åç¨‹
         if (moveToQueueCoroutine != null)
         {
             StopCoroutine(moveToQueueCoroutine);
         }
 
-        // Æô¶¯ĞÂµÄÒÆ¶¯Ğ­³Ì
+        // å¯åŠ¨æ–°çš„ç§»åŠ¨åç¨‹
         moveToQueueCoroutine = StartCoroutine(MoveToQueuePosition());
     }
 
     private IEnumerator MoveToQueuePosition()
     {
-        // Ö»ÓĞÔÚÅÅ¶Ó×´Ì¬ÏÂ²ÅÒÆ¶¯
+        // åªæœ‰åœ¨æ’é˜ŸçŠ¶æ€ä¸‹æ‰ç§»åŠ¨
         if (currentState != CustomerState.Queuing)
         {
             yield break;
         }
 
-        // Ê¹ÓÃÏÖÓĞµÄMoveToPosition·½·¨ÒÆ¶¯µ½Ä¿±êÎ»ÖÃ
+        // ä½¿ç”¨ç°æœ‰çš„MoveToPositionæ–¹æ³•ç§»åŠ¨åˆ°ç›®æ ‡ä½ç½®
         yield return StartCoroutine(MoveToPosition(targetQueuePosition));
 
-        // µ½´ïºóÍ£Ö¹ÒÆ¶¯¶¯»­
+        // åˆ°è¾¾ååœæ­¢ç§»åŠ¨åŠ¨ç”»
         if (animator != null)
         {
             animator.SetBool("IsWalking", false);
@@ -1450,7 +1450,7 @@ public class CustomerNPC : MonoBehaviour
     #endregion
 
 
-    #region UIºÍ¶Ô»°ÅİÅİ
+    #region UIå’Œå¯¹è¯æ³¡æ³¡
     void ShowDialogueBubble(string text)
     {
         if (this == null || gameObject == null)
@@ -1475,7 +1475,7 @@ public class CustomerNPC : MonoBehaviour
 
         currentBubble.SetActive(true);
 
-        // ²éÕÒContentÎÄ±¾×é¼şµÄÕıÈ·Â·¾¶
+        // æŸ¥æ‰¾Contentæ–‡æœ¬ç»„ä»¶çš„æ­£ç¡®è·¯å¾„
         Transform panel = currentBubble.transform.Find("Panel");
         if (panel != null)
         {
@@ -1490,17 +1490,17 @@ public class CustomerNPC : MonoBehaviour
 
                     if (tmpText.font == null)
                     {
-                        Debug.LogWarning("×ÖÌå¼ÓÔØÊ§°Ü£¬½«Ê¹ÓÃÄ¬ÈÏ×ÖÌå");
+                        Debug.LogWarning("å­—ä½“åŠ è½½å¤±è´¥ï¼Œå°†ä½¿ç”¨é»˜è®¤å­—ä½“");
                     }
                 }
                 else
                 {
-                    Debug.LogError("Content¶ÔÏóÉÏÕÒ²»µ½TMP_Text×é¼ş");
+                    Debug.LogError("Contentå¯¹è±¡ä¸Šæ‰¾ä¸åˆ°TMP_Textç»„ä»¶");
                 }
             }
             else
             {
-                Debug.LogError("PanelÏÂÕÒ²»µ½Content¶ÔÏó");
+                Debug.LogError("Panelä¸‹æ‰¾ä¸åˆ°Contentå¯¹è±¡");
             }
             Transform nameLayer = panel.Find("Header");
             Transform NPCNameLayer = nameLayer.Find("NPCName");
@@ -1510,7 +1510,7 @@ public class CustomerNPC : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ÕÒ²»µ½Panel¶ÔÏó");
+            Debug.LogError("æ‰¾ä¸åˆ°Panelå¯¹è±¡");
         }
 
         bubbleCoroutine = StartCoroutine(HideBubbleAfterDelay());
@@ -1541,10 +1541,10 @@ public class CustomerNPC : MonoBehaviour
             bubbleCoroutine = null;
         }
     }
-    // Ìí¼ÓUI³õÊ¼»¯·½·¨
+    // æ·»åŠ UIåˆå§‹åŒ–æ–¹æ³•
     void InitializeUI()
     {
-        // ÊµÀı»¯Í·¶¥UI
+        // å®ä¾‹åŒ–å¤´é¡¶UI
         if (CustomerEmotionPrefab != null)
         {
             GameObject overheadUI = Instantiate(CustomerEmotionPrefab, transform);
@@ -1555,7 +1555,7 @@ public class CustomerNPC : MonoBehaviour
             }
         }
 
-        // ÊµÀı»¯ĞÅÏ¢UI
+        // å®ä¾‹åŒ–ä¿¡æ¯UI
         if (CustomerInformationPrefab != null)
         {
             InformationUI = Instantiate(CustomerInformationPrefab, transform);
@@ -1563,11 +1563,11 @@ public class CustomerNPC : MonoBehaviour
             if (infoComponent != null)
             {
                 infoComponent.customer = this;
-                infoComponent.HideUI(); // Ä¬ÈÏÒş²ØĞÅÏ¢UI
+                infoComponent.HideUI(); // é»˜è®¤éšè—ä¿¡æ¯UI
             }
         }
     }
-    // ¸üĞÂÂúÒâ¶ÈUI
+    // æ›´æ–°æ»¡æ„åº¦UI
     public void UpdateSatisfactionUI(float oldValue, float newValue)
     {
         if (InformationUI != null)
@@ -1580,7 +1580,7 @@ public class CustomerNPC : MonoBehaviour
         }
     }
 
-    // ¸üĞÂ×´Ì¬UI
+    // æ›´æ–°çŠ¶æ€UI
     public void UpdateStatusUI()
     {
         if (InformationUI != null)
@@ -1593,7 +1593,7 @@ public class CustomerNPC : MonoBehaviour
         }
     }
 
-    // µã»÷ÏÔÊ¾/Òş²ØĞÅÏ¢UI
+    // ç‚¹å‡»æ˜¾ç¤º/éšè—ä¿¡æ¯UI
     public void ToggleInformationUI()
     {
         if (InformationUI != null)
@@ -1609,7 +1609,7 @@ public class CustomerNPC : MonoBehaviour
     #endregion
 
 
-    #region ·şÎñÔ±°ó¶¨
+    #region æœåŠ¡å‘˜ç»‘å®š
     public NPCBehavior assignedWaiter { get; private set; } = null;
     public bool isBeingServed { get; private set; } = false;
 
@@ -1632,23 +1632,23 @@ public class CustomerNPC : MonoBehaviour
     {
         assignedWaiter = waiter;
         isBeingServed = true;
-        Debug.Log($"[{customerName}] ±»·ÖÅä¸ø·şÎñÔ±{waiter.npcName}");
+        Debug.Log($"[{customerName}] è¢«åˆ†é…ç»™æœåŠ¡å‘˜{waiter.npcName}");
     }
 
     public void ReleaseWaiter()
     {
         if (assignedWaiter != null)
         {
-            Debug.Log($"[{customerName}] ÊÍ·Å·şÎñÔ±{assignedWaiter.npcName}");
+            Debug.Log($"[{customerName}] é‡Šæ”¾æœåŠ¡å‘˜{assignedWaiter.npcName}");
             assignedWaiter = null;
         }
         isBeingServed = false;
     }
     #endregion
 
-    #region Íæ¼Ò½»»¥
+    #region ç©å®¶äº¤äº’
 
-    [Header("Íæ¼Ò½»»¥ÉèÖÃ")]
+    [Header("ç©å®¶äº¤äº’è®¾ç½®")]
     public float playerInteractionRange = 3f;
     private bool playerInRange = false;
     private bool waitingForPlayerResponse = false;
@@ -1660,7 +1660,7 @@ public class CustomerNPC : MonoBehaviour
             float distance = Vector3.Distance(transform.position, player.transform.position);
             playerInRange = distance <= playerInteractionRange;
 
-            // Èç¹ûÍæ¼Ò¸Õ¸Õ½øÈë·¶Î§£¬ÏòÍæ¼Ò±§Ô¹
+            // å¦‚æœç©å®¶åˆšåˆšè¿›å…¥èŒƒå›´ï¼Œå‘ç©å®¶æŠ±æ€¨
             if (playerInRange && !waitingForPlayerResponse)
             {
                 StartCoroutine(ComplainToPlayer());
@@ -1671,7 +1671,7 @@ public class CustomerNPC : MonoBehaviour
             playerInRange = false;
         }
     }
-    // ÏòÍæ¼Ò±§Ô¹
+    // å‘ç©å®¶æŠ±æ€¨
     IEnumerator ComplainToPlayer()
     {
         string complaint = "";
@@ -1682,8 +1682,8 @@ public class CustomerNPC : MonoBehaviour
             }));
 
         ShowDialogueBubble(complaint);
-        AddDialogue($"¹Ë¿Í£º{complaint}");
-        AddMemory($"Ïò¾­Àí±§Ô¹£º{complaint}");
+        AddDialogue($"é¡¾å®¢ï¼š{complaint}");
+        AddMemory($"å‘ç»ç†æŠ±æ€¨ï¼š{complaint}");
     }
 
 
@@ -1701,7 +1701,7 @@ public class CustomerNPC : MonoBehaviour
 
 }
 
-// ¹Ë¿Í»î¶¯Êı¾İ½á¹¹
+// é¡¾å®¢æ´»åŠ¨æ•°æ®ç»“æ„
 public struct CustomerActivity
 {
     public string action;
@@ -1723,7 +1723,7 @@ public struct CustomerActivity
     
 }
 
-// JSON½âÎöÊı¾İ½á¹¹
+// JSONè§£ææ•°æ®ç»“æ„
 [Serializable]
 public class CustomerDecisionData
 {
