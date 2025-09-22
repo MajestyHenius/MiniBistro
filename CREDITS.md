@@ -15,7 +15,7 @@ The following free asset packs from [LimZu](https://limezu.itch.io/) are used in
 ---
 
 ## **Note on Demo/ Video**
-The promotional and demo videos for **MiniBistro** feature artwork from LimZu's **premium, paid asset packs**, which are licensed for commercial use by the development team:
+The promotional demo and videos for **MiniBistro** feature artwork from LimZu's **premium, paid asset packs**, which are licensed for commercial use by the development team:
 - **[Modern Interiors](https://limezu.itch.io/moderninteriors)**
 These premium assets are **NOT** distributed with this open-source code. To achieve a visual quality similar to our demo, you may need to purchase the respective asset packs or find suitable alternatives.
 
