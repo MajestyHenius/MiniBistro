@@ -96,8 +96,9 @@ MiniBistro/
 │   ├── Scenes/            # Unity scenes
 │   ├── Sprites/
 │   ├── Prefabs/
-│   └── StreamingAssets/   # API Key, JSON data (Waiters, Customers, Menu, etc.)
+│   └── StreamingAssets/   # JSON data (Waiters, Customers, Menu, etc.)
 ├── ProjectSettings/
+├── Config/                # API Key
 └── Packages/
 </pre>
 
