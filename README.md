@@ -1,20 +1,22 @@
-# MiniBistro: A business simulation game based on generative agents.
+# MiniBistro: A Business Simulation Game Based on Generative Agents
 
 **This work is done at Shanghai Qi Zhi Institute under the supervision of Professor** [**Tianxing He**](https://cloudygoose.github.io/)
 
 ![Unity](https://img.shields.io/badge/Unity-2022.3%2B-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
-**MiniBistro** is a restaurant management/business simulation [game](#Directly-Play) powered by Generative Agents. As the restaurant owner, you manage operations and build your reputation through natural language interactions with AI-driven waiters and customers. Game&Dialogue language: Chinese.
+
+**MiniBistro** is a restaurant management/business simulation [game](#Directly-Play) powered by Generative Agents. As the restaurant owner, you manage operations and build your reputation through natural language interactions with AI-driven waiters and customers. 
+
 ![Fig1](./ppt.jpg)
 
 ## 🎮 Overview
 
-In MiniBistro, non-player characters (NPCs) are powered by Large Language Models (LLMs). Waiters make autonomous decisions based on their personality, backgrounds, game value(energy/mood) and memory. Customers have their own backgrounds, preferences, and base satisfaction, leading to dynamic and unpredictable interactions. This Unity-based 2D business simulation explores the future of AI-driven gameplay and emergent storytelling.
+In MiniBistro, non-player characters (NPCs) are powered by Large Language Models (LLMs). Waiters make autonomous decisions based on their personality, backgrounds, game value (energy/mood) and memory. Customers have their own backgrounds, preferences, and base satisfaction, leading to dynamic and unpredictable interactions. This Unity-based 2D business simulation explores the future of AI-driven gameplay and emergent storytelling.
 
 ## ✨ Features
 
 ### 🤖 NPC Systems
-- **Generative Waiters**: Each waiter has a unique personality, backstory, stat system (Energy, Mood, Tips) and memory that directly influences their LLM-driven decision-making (e.g., "Lin is a student doing part-time job." "Dong is an unemployed worker just trying to make a living." ).
+- **Generative Waiters**: Each waiter has a unique personality, backstory, stat system (Energy, Mood, Tips) and memory that directly influences their LLM-driven decision-making (e.g., "Lin is a student doing part-time job." "Dong is an unemployed worker just trying to make a living.").
 - **Generative Customers**: Customers are pre-generated into libraries (Normal, All-Positive, All-Negative) with distinct base satisfications, personalities, preferences, and rich backstories that affect their behavior.
 - **State Machines & LLM Fusion**: Waiters operate on a flexible state machine powered by LLM choices, while chefs use a fixed state machine to ensure gameplay stability. Customers use LLMs for key decisions like queuing, ordering, waiting, complaining, leaving and even emergence situations.
 
@@ -25,7 +27,7 @@ In MiniBistro, non-player characters (NPCs) are powered by Large Language Models
 
 ### 🧠 Memory & Reflection Ecosystem
 - **Comprehensive Memory Logs**: Every action, decision, and conversation is timestamped and logged into each NPC's memory.
-- **Long-term Reflection**: Inspired by *Stanford Generative Agents *, multi-day memories are condensed into summaries and reflections, continuously shaping the Agent's future behavior and personality.
+- **Long-term Reflection**: Inspired by *Stanford Generative Agents*, multi-day memories are condensed into summaries and reflections, continuously shaping the Agent's future behavior and personality.
 
 ### ⏰ Simulation & Management
 - **Strategic Staffing**: Before each day's business, you must select your team of waiters from a daily random subset of unique waiter agents. Your success hinges on strategically assessing their personalities, backstories, and stats to build the most effective team for the day's expected challenges.
@@ -275,8 +277,8 @@ If you find any bugs or have questions, please reach out via email: **heniusarch
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
-- **Advisor: Special thanks to Professor **[**Tianxing He**](https://cloudygoose.github.io/)  for his guidance.
-- **Collaborators**: Thanks to Lanlan Qiu and Yeqi Feng for their contributions to the initial concept, with Lanlan Qiu also leading the paper writing.
+- **Advisor**: Special thanks to Professor [**Tianxing He**](https://cloudygoose.github.io/)  for his guidance.
+- **Collaborators**: Thanks to Lanlan Qiu and Yeqi Feng for their contributions to the initial concept, with Lanlan Qiu also leading the paper writing and visualization.
 - Inspired by the [Generative Agents](https://arxiv.org/abs/2304.03442) paper.
 - Built with [Unity](https://unity.com).
 
