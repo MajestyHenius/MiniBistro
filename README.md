@@ -9,6 +9,24 @@
 
 ![Fig1](./ppt.jpg)
 
+**📖 Paper Link:** [Generative Agents for Business Simulation Game: A Technical Report](https://www.preprints.org/manuscript/202510.0052/v1)
+## 📄 Citation
+
+If you use MiniBistro in your research, please cite our paper:
+
+```bibtex
+@article{202510.0052,
+	doi = {10.20944/preprints202510.0052.v1},
+	url = {https://doi.org/10.20944/preprints202510.0052.v1},
+	year = 2025,
+	month = {October},
+	publisher = {Preprints},
+	author = {Yunfei Ma and Lanlan Qiu and Yeqi Feng and Tianxing He},
+	title = {Generative Agents for Business Simulation Game: A Technical Report},
+	journal = {Preprints}
+}
+```
+
 ## 🎮 Overview
 
 In MiniBistro, non-player characters (NPCs) are powered by Large Language Models (LLMs). Waiters make autonomous decisions based on their personality, backgrounds, game value (energy/mood) and memory. Customers have their own backgrounds, preferences, and base satisfaction, leading to dynamic and unpredictable interactions. This Unity-based 2D business simulation explores the future of AI-driven gameplay and emergent storytelling.
